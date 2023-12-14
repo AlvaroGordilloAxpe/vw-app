@@ -1,3 +1,4 @@
 .container {
-
+    min-height: calc(100vh - 5rem);
+    /*background: #fff url('/vw/back.jpg') no-repeat right 50% bottom 50%;*/
 }

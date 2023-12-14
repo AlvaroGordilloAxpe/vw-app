@@ -1,6 +1,8 @@
 import React from 'react'
-
+import styles from './sign-in.module.css'
+import cn from 'classnames'
 import { LoginWidget } from '../../widgets/login'
+import * as Card from '@/common/components/ui/card'
 
 type SignInViewProps = {
     // query parameters
@@ -11,30 +13,23 @@ type SignInViewProps = {
 
 export function SignInView(props: SignInViewProps) {
     return (
-        <>
-            <div className="container relative md:h-[800px] grid items-center justify-stretch md:justify-center lg:max-w-none p-0">
-                <div
-                    className="absolute hidden md:block inset-0 bg-cover -z-10"
-                    style={{
-                        backgroundImage:
-                            'url(https://images.unsplash.com/photo-1590069261209-f8e9b8642343?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80)',
-                    }}
-                />
-                <div className="relative flex items-center justify-center px-4 lg:px-6 pt-4 pb-6">
-                    <div className="absolute w-full h-full md:rounded-md bg-white p-2 -z-10" />
-                    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                        <div className="flex flex-col space-y-2 text-center">
-                            <h1 className="text-2xl font-semibold">
-                                Account Sign In
-                            </h1>
-                            <p className="text-sm text-primary">
-                                Enter your username below to create your account
-                            </p>
-                        </div>
-                        <LoginWidget />
-                    </div>
-                </div>
-            </div>
-        </>
+        <div
+            className={cn(
+                styles.container,
+                'flex justify-center items-center bg-neutral-200'
+            )}
+        >
+            <Card.Root className="w-1/4 bg-neutral-50">
+                <Card.Header>
+                    <Card.Title>Account Sign In</Card.Title>
+                    <Card.Description>
+                        Enter your email and password to sign in your account.
+                    </Card.Description>
+                </Card.Header>
+                <Card.Content>
+                    <LoginWidget />
+                </Card.Content>
+            </Card.Root>
+        </div>
     )
 }

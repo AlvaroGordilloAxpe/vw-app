@@ -5,6 +5,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import * as Avatar from '@/common/components/ui/avatar'
 import * as Popover from '@/common/components/ui/popover'
 import { Button } from '@/common/components/ui/button'
+import { usePathname } from 'next/navigation'
 
 export type AccountWidgetProps = {
     className: string
@@ -12,18 +13,22 @@ export type AccountWidgetProps = {
 
 export function AccountWidget(props: AccountWidgetProps) {
     const { status } = useSession()
+    const path = usePathname()
 
     return (
         <div
             data-testid="account-widget"
             className={classNames(styles.container, props.className)}
         >
-            {selectComponent(status)}
+            {selectComponent(status, path)}
         </div>
     )
 }
 
-function selectComponent(authStatus: ReturnType<typeof useSession>['status']) {
+function selectComponent(
+    authStatus: ReturnType<typeof useSession>['status'],
+    path: string
+) {
     return authStatus === 'authenticated' ? (
         <LoggedInUser />
     ) : (
@@ -31,6 +36,7 @@ function selectComponent(authStatus: ReturnType<typeof useSession>['status']) {
             size="lg"
             onClick={() => signIn()}
             className="tracking-widest text-lg"
+            disabled={path === '/auth/sign-in'}
         >
             Sign In
         </Button>

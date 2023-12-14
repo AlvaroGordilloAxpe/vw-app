@@ -1,23 +1,15 @@
 import styles from './header.module.css'
 import React from 'react'
-import cn from 'classnames'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
 import { AccountWidget } from '@/auth/widgets/account'
 import * as Tooltip from '@/common/components/ui/tooltip'
 
 export type HeaderWidgetProps = {}
 
 export function HeaderWidget(props: HeaderWidgetProps) {
-    const path = usePathname()
-    const root = '/'
-
     return (
-        <div
-            data-testid="header-widget"
-            className={cn(styles.container, path !== root && 'border-b')}
-        >
+        <div data-testid="header-widget" className={styles.container}>
             <Link href="/" className={styles.logo}>
                 <Tooltip.Provider>
                     <Tooltip.Root>
