@@ -6,7 +6,7 @@ export type RootLayoutProps = PropsWithChildren<{}>
 export function RootLayout(props: RootLayoutProps) {
     return (
         <html lang="en">
-            <body>
+            <body suppressHydrationWarning={true}>
                 <div data-testid="root-layout" className={styles.container}>
                     {props.children}
                 </div>

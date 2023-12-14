@@ -27,7 +27,13 @@ function selectComponent(authStatus: ReturnType<typeof useSession>['status']) {
     return authStatus === 'authenticated' ? (
         <LoggedInUser />
     ) : (
-        <Button onClick={() => signIn()}>Sign In</Button>
+        <Button
+            size="lg"
+            onClick={() => signIn()}
+            className="tracking-widest text-lg"
+        >
+            Sign In
+        </Button>
     )
 }
 
