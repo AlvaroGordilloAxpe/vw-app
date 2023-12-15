@@ -9,7 +9,7 @@ export type LoginWidgetProps = {}
 export function LoginWidget(props: LoginWidgetProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get('callbackUrl') || '/profile'
+    const callbackUrl = searchParams.get('callbackUrl') || '/vw'
 
     return (
         <div data-testid="login-widget" className={styles.container}>
@@ -33,3 +33,11 @@ export function LoginWidget(props: LoginWidgetProps) {
         </div>
     )
 }
+
+/** NOTE Example redirect method (alternative way)
+ *
+ * import { redirect } from 'next/navigation';
+ *
+ * revalidatePath(callbackUrl);
+ * redirect(callbackUrl);
+ */
