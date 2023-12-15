@@ -10,7 +10,7 @@ export type HeaderWidgetProps = {}
 export function HeaderWidget(props: HeaderWidgetProps) {
     return (
         <div data-testid="header-widget" className={styles.container}>
-            <Link href="/" className={styles.logo}>
+            <Link href="/vw" className={styles.logo}>
                 <Tooltip.Provider>
                     <Tooltip.Root>
                         <Tooltip.Trigger>
@@ -22,7 +22,7 @@ export function HeaderWidget(props: HeaderWidgetProps) {
                                 priority
                             />
                         </Tooltip.Trigger>
-                        <Tooltip.Content>Go Home</Tooltip.Content>
+                        <Tooltip.Content>Go Main Menu</Tooltip.Content>
                     </Tooltip.Root>
                 </Tooltip.Provider>
             </Link>

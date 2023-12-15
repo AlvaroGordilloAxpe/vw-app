@@ -2,6 +2,7 @@ import styles from './main.module.css'
 import cn from 'classnames'
 import * as Card from '@/common/components/ui/card'
 import { Button } from '@/common/components/ui/button'
+import Link from 'next/link'
 
 export function VWMainView() {
     return (
@@ -21,17 +22,19 @@ export function VWMainView() {
                 </Card.Header>
                 <Card.Content className="flex flex-col gap-8">
                     <Button size="lg" className="tracking-widest text-lg">
-                        Document List
-                    </Button>
-                    <Button size="lg" className="tracking-widest text-lg">
-                        Analitycs
+                        <Link href="/vw/documents-list">Documents List</Link>
                     </Button>
 
                     <Button size="lg" className="tracking-widest text-lg">
-                        Search Data
+                        <Link href="/vw/analytics">Analytics</Link>
                     </Button>
+
                     <Button size="lg" className="tracking-widest text-lg">
-                        Administration
+                        <Link href="/vw/searches">Search Data</Link>
+                    </Button>
+
+                    <Button size="lg" className="tracking-widest text-lg">
+                        <Link href="/vw/administration">Administration</Link>
                     </Button>
                 </Card.Content>
             </Card.Root>
