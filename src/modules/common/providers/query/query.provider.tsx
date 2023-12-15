@@ -7,6 +7,7 @@ const queryClient = new QueryClient()
 
 export const QueryProvider = ({ children }: PropsWithChildren) => {
     const { status } = useSession()
+
     useEffect(() => {
         if (status === 'unauthenticated') {
             void queryClient.invalidateQueries()

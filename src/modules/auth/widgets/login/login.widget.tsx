@@ -10,6 +10,7 @@ export function LoginWidget(props: LoginWidgetProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl') || '/profile'
+
     return (
         <div data-testid="login-widget" className={styles.container}>
             <AuthForm

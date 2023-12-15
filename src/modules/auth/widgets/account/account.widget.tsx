@@ -45,6 +45,7 @@ function selectComponent(
 
 function LoggedInUser() {
     const { data: session } = useSession()
+
     return (
         <Popover.Root>
             <Popover.Trigger asChild className="cursor-pointer">

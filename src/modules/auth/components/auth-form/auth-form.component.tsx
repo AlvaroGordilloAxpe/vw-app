@@ -33,6 +33,7 @@ export function AuthForm({ className, onSubmit, ...props }: AuthFormProps) {
         onSubmit: async (data) => {
             try {
                 const error = await onSubmit(data)
+
                 if (typeof error === 'string') {
                     form.setError('root.submit', {
                         type: 'server',
