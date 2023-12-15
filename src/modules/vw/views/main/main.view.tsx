@@ -8,10 +8,7 @@ export function VWMainView() {
     return (
         <div
             data-testid="vw-main-view"
-            className={cn(
-                styles.container,
-                'bg-neutral-200 flex justify-center items-center'
-            )}
+            className={cn(styles.container, 'flex justify-center items-center')}
         >
             <Card.Root className="w-1/4 min-h-[30vh] bg-neutral-50">
                 <Card.Header>
