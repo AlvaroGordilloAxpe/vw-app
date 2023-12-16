@@ -1,9 +1,10 @@
 import styles from './documents-list.module.css'
+import { VWDocsListWidget } from '@/vw/widgets/docs-list'
 
 export function VWDocumentsListView() {
     return (
         <div data-testid="vw-documents-list-view" className={styles.container}>
-            <h1>VW Documents List</h1>
+            <VWDocsListWidget />
         </div>
     )
 }

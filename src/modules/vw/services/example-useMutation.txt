@@ -1,0 +1,84 @@
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useWebTokenStore } from "../store/webToken.store";
+import { useNavigate } from "react-router-dom";
+import { LoginFormData } from "../types";
+import { loginRequest, profileRequest } from "../services/login";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
+import LoginInputText from "./components/LoginInputText";
+import LoginInputPass from "./components/LoginInputPass";
+
+//NOTE - {"username":"maria","password":"guess"}
+//NOTE - {"username":"john","password":"changeme"}
+
+function LoginForm() {
+  const navigate = useNavigate();
+  const { setAccessToken, setUserProfile } = useWebTokenStore();
+
+  const { error, isError, isPending, mutateAsync } = useMutation({
+    mutationFn: loginRequest,
+  });
+
+  const { control, handleSubmit } = useForm<LoginFormData>({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+    mode: "onChange",
+    reValidateMode: "onSubmit",
+  });
+
+  const onHandleSubmit = handleSubmit(
+    async (values) => {
+      try {
+        setAccessToken((await mutateAsync(values)).access_token);
+        setUserProfile(await profileRequest());
+        navigate("/profile");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    (error) => {
+      console.error("SubmitError", error);
+    }
+  );
+
+  return (
+    <>
+      {isError && (
+        <Alert variant="danger" className="mt-3 mb-5">
+          <Alert.Heading>{error?.name}</Alert.Heading>
+          <p>{error?.message}</p>
+        </Alert>
+      )}
+
+      <Form onSubmit={onHandleSubmit} className="mt-3 mb-3">
+        <Row className="justify-content-around">
+          <LoginInputText
+            name="username"
+            control={control}
+            rules={{ required: "Please provide a valid username" }}
+          />
+          <LoginInputPass
+            name="password"
+            control={control}
+            rules={{ required: "Please provide a valid password" }}
+          />
+          <Form.Group as={Col} xs="auto">
+            <Button
+              variant="primary"
+              type="submit"
+              size="lg"
+              className="text-uppercase"
+              disabled={isPending}
+            >
+              Submit
+            </Button>
+          </Form.Group>
+        </Row>
+      </Form>
+    </>
+  );
+}
+
+export default LoginForm;

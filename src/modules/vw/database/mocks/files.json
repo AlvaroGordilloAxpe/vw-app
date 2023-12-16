@@ -1,0 +1,39 @@
+{
+    "data": [
+        {
+            "name": "File 1.txt",
+            "id": "1",
+            "description": "Sample text file",
+            "comment": "This is a test file",
+            "mimetype": "text/plain"
+        },
+        {
+            "name": "Image.jpg",
+            "id": "2",
+            "description": "Sample image file",
+            "comment": "Test image",
+            "mimetype": "image/jpeg"
+        },
+        {
+            "name": "Document.pdf",
+            "id": "3",
+            "description": "Sample PDF file",
+            "comment": "Test PDF",
+            "mimetype": "application/pdf"
+        },
+        {
+            "name": "Video.mp4",
+            "id": "4",
+            "description": "Sample video file",
+            "comment": "Test video",
+            "mimetype": "video/mp4"
+        },
+        {
+            "name": "Audio.wav",
+            "id": "5",
+            "description": "Sample audio file",
+            "comment": "Test audio",
+            "mimetype": "audio/wav"
+        }
+    ]
+}
