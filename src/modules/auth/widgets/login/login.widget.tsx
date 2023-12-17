@@ -8,11 +8,10 @@ import { useUsersToDB } from '@/vw/services'
 export type LoginWidgetProps = {}
 
 export function LoginWidget(props: LoginWidgetProps) {
-    useUsersToDB()
-
     const router = useRouter()
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl') || '/vw'
+    useUsersToDB()
 
     return (
         <div data-testid="login-widget" className={styles.container}>
