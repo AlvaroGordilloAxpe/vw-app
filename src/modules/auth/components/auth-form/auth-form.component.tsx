@@ -42,6 +42,7 @@ export function AuthForm({ className, onSubmit, ...props }: AuthFormProps) {
                 }
             } catch (e: any) {
                 console.error('AuthForm.onSubmit error', e)
+
                 form.setError('root.submit', {
                     type: 'unknown',
                     message: 'Unknown error',
