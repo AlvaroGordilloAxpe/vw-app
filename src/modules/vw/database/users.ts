@@ -1,5 +1,5 @@
-import usersJSON from './mocks/users.json'
 import { db } from './db'
+import { usersJSON } from './mocks'
 import { User } from './types'
 
 export const insertUsersDB = async () => {

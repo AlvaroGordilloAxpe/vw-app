@@ -1,5 +1,5 @@
 import { db } from './db'
-import testsJSON from './mocks/tests.json'
+import { testsJSON } from './mocks'
 
 export const insertTestsDB = async () => {
     try {

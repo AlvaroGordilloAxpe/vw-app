@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { LoadingButton } from '@/common/components/loading-button'
 import * as Form from '@/common/components/ui/form'
 import { z } from 'zod'
+import { getUserLogin } from '@/vw/database'
 
 export type AuthFormCredentials = { username: string; password: string }
 export type AuthFormProps = Omit<
@@ -31,19 +32,30 @@ export function AuthForm({ className, onSubmit, ...props }: AuthFormProps) {
             password: '',
         },
         onSubmit: async (data) => {
-            try {
-                const error = await onSubmit(data)
+            const rootSubmit = 'root.submit'
 
-                if (typeof error === 'string') {
-                    form.setError('root.submit', {
+            try {
+                const userDB = await getUserLogin(data.username)
+
+                if (!userDB) {
+                    form.setError(rootSubmit, {
                         type: 'server',
-                        message: error,
+                        message: 'User not found',
                     })
+                } else {
+                    const error = await onSubmit(data)
+
+                    if (typeof error === 'string') {
+                        form.setError(rootSubmit, {
+                            type: 'server',
+                            message: error,
+                        })
+                    }
                 }
             } catch (e: any) {
                 console.error('AuthForm.onSubmit error', e)
 
-                form.setError('root.submit', {
+                form.setError(rootSubmit, {
                     type: 'unknown',
                     message: 'Unknown error',
                 })
