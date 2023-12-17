@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { LoadingButton } from '@/common/components/loading-button'
 import * as Form from '@/common/components/ui/form'
 import { z } from 'zod'
+import { getUserLogin } from '@/vw/database'
 
 export type AuthFormCredentials = { username: string; password: string }
 export type AuthFormProps = Omit<
@@ -32,13 +33,23 @@ export function AuthForm({ className, onSubmit, ...props }: AuthFormProps) {
         },
         onSubmit: async (data) => {
             try {
-                const error = await onSubmit(data)
+                const userDB = await getUserLogin(data.username)
 
-                if (typeof error === 'string') {
+                if (!userDB) {
+                    // eslint-disable-next-line sonarjs/no-duplicate-string
                     form.setError('root.submit', {
                         type: 'server',
-                        message: error,
+                        message: 'Usuario No Existe',
                     })
+                } else {
+                    const error = await onSubmit(data)
+
+                    if (typeof error === 'string') {
+                        form.setError('root.submit', {
+                            type: 'server',
+                            message: error,
+                        })
+                    }
                 }
             } catch (e: any) {
                 console.error('AuthForm.onSubmit error', e)

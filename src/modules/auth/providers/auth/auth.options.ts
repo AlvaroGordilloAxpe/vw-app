@@ -46,10 +46,12 @@ export const authOptions: AuthOptions = {
         CredentialsProvider({
             name: 'custom-credentials',
             credentials: {
-                email: { type: 'email' },
+                username: { type: 'email' },
                 password: { type: 'password' },
             },
             authorize: async (credentials, _req) => {
+                const safePass = 'safe-password'
+
                 // TODO: Connect with login API in the backend
                 const user: User = {
                     id: '1',
@@ -59,29 +61,12 @@ export const authOptions: AuthOptions = {
                     // TODO: Set the incoming api token here, if needed
                     apiSession: {
                         accessToken: 'jwt-token',
-                        // refreshToken: 'refresh-token-if-any',
+                        refreshToken: 'refresh-token-if-any',
                     },
                 }
 
-                return credentials?.password === 'safe-password' ? user : null
+                return credentials?.password === safePass ? user : null
             },
         }),
     ],
 }
-
-/** NOTE: Authorize Method Alternative...
- *
- * authorized({ auth, request: { nextUrl } }) {
-    const isLoggedIn = !!auth?.user;
-    const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-
-    if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-    } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl));
-    }
-
-    return true;
-   },
- */

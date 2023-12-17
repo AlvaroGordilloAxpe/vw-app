@@ -1,0 +1,26 @@
+{
+    "data": [
+        {
+            "id": "1",
+            "name": "Dani Peña Iglesias",
+            "email": "dpenai@pibone.com",
+            "image": "",
+            "role": "admin",
+            "apiSession": {
+                "accessToken": "string",
+                "refreshToken": "string | null"
+            }
+        },
+        {
+            "id": "2",
+            "name": "Álvaro Gordillo Reina",
+            "email": "agordillor@axpe.com",
+            "image": "",
+            "role": "user",
+            "apiSession": {
+                "accessToken": "string",
+                "refreshToken": "string | null"
+            }
+        }
+    ]
+}

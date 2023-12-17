@@ -1,3 +1,19 @@
+export type Role = 'admin' | 'user'
+
+export interface ApiSession {
+    accessToken: string
+    refreshToken?: string
+}
+
+export interface User {
+    id: string
+    name?: string
+    email?: string
+    image?: string
+    role: string
+    apiSession?: ApiSession
+}
+
 export interface File {
     name: string
     id: string
