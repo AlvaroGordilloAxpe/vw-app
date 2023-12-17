@@ -1,4 +1,5 @@
 import { getApiContext } from '@/common/providers/api-context/api-context.default'
+import { getUserLogin } from '@/vw/database/users'
 import { AuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -51,6 +52,8 @@ export const authOptions: AuthOptions = {
             },
             authorize: async (credentials, _req) => {
                 const safePass = 'safe-password'
+                const userDB = await getUserLogin('dpenai@pibone.com')
+                console.debug('userDB', userDB)
 
                 // TODO: Connect with login API in the backend
                 const user: User = {

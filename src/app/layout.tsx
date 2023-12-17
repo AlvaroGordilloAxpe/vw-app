@@ -1,4 +1,5 @@
 import '../styles/main.css'
+import 'fake-indexeddb/auto'
 import { RootLayout } from '@/common/layouts/root'
 import { ApplicationLayout } from '@/common/layouts/application'
 import { PropsWithChildren } from 'react'

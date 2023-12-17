@@ -8,20 +8,11 @@ import { useUsersToDB } from '@/vw/services'
 export type LoginWidgetProps = {}
 
 export function LoginWidget(props: LoginWidgetProps) {
+    useUsersToDB()
+
     const router = useRouter()
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl') || '/vw'
-    const { data, error, isFetching, isLoading } = useUsersToDB()
-    console.debug(
-        'LoginWidget data:',
-        data,
-        'error:',
-        error,
-        'isFetching:',
-        isFetching,
-        'isLoading:',
-        isLoading
-    )
 
     return (
         <div data-testid="login-widget" className={styles.container}>
@@ -52,3 +43,5 @@ import { redirect } from 'next/navigation';
 revalidatePath(callbackUrl);
 redirect(callbackUrl);
 */
+// NOTE (3) Alternative use of hook "useUsersToDB"
+// const { data, error, isFetching, isLoading } = useUsersToDB()
