@@ -1,5 +1,6 @@
 import { db } from './db'
 import { filesJSON } from './mocks'
+import { QueryFunctionContext } from '@tanstack/react-query'
 
 export const insertFilesDB = async () => {
     try {
@@ -17,9 +18,13 @@ export const getFiles = async () => {
     }
 }
 
-export const getFileById = async (id: string) => {
+export const getFileById = async ({ queryKey }: QueryFunctionContext) => {
+    const [, id] = queryKey
+
     try {
-        return await db.files.get(id)
+        if (id !== '0') return await db.files.get(id as string)
+
+        return null
     } catch (e) {
         console.error(e)
     }

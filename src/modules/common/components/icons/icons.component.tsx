@@ -24,10 +24,11 @@ import {
     Facebook,
     Instagram,
     Youtube,
+    Eye,
 } from 'lucide-react'
 
 export const Icons = {
-    logo: (props) => (
+    logo: (props: any) => (
         <svg
             viewBox="0 0 24 24"
             fill="currentColor"
@@ -62,6 +63,7 @@ export const Icons = {
     help: HelpCircle,
     copy: Copy,
     copyDone: ClipboardCheck,
+    eye: Eye,
     // social icons
     twitter: Twitter,
     linkedin: Linkedin,

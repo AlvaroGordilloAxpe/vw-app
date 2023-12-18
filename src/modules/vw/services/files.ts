@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { insertFilesDB, getFiles } from '@/vw/database/files'
+import { insertFilesDB, getFiles, getFileById } from '@/vw/database/files'
 
 export const useFilesToDB = () => {
     return useQuery({
@@ -12,5 +12,12 @@ export const useGetFiles = () => {
     return useQuery({
         queryKey: ['getfiles'],
         queryFn: getFiles,
+    })
+}
+
+export const useGetFileById = (id: string) => {
+    return useQuery({
+        queryKey: ['getfilebyid', id],
+        queryFn: getFileById,
     })
 }
