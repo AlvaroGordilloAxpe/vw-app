@@ -2,7 +2,7 @@ import { db } from './db'
 import { filesJSON } from './mocks'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
-export const insertFilesDB = async () => {
+export const populateFiles = async () => {
     try {
         return await db.files.bulkPut(filesJSON.data)
     } catch (e) {

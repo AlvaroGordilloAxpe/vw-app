@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { AuthForm } from '../../components/auth-form'
 import styles from './login.module.css'
-import { useUsersToDB } from '@/vw/services'
+import { usePopulateUsers } from '@/vw/services'
 
 export type LoginWidgetProps = {}
 
@@ -11,7 +11,7 @@ export function LoginWidget(props: LoginWidgetProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl') || '/vw'
-    useUsersToDB()
+    usePopulateUsers()
 
     return (
         <div data-testid="login-widget" className={styles.container}>

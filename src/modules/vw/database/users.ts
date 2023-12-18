@@ -2,7 +2,7 @@ import { db } from './db'
 import { usersJSON } from './mocks'
 import { User } from './types'
 
-export const insertUsersDB = async () => {
+export const populateUsers = async () => {
     try {
         return await db.users.bulkPut(usersJSON.data)
     } catch (e) {

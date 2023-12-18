@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": "1",
+            "name": "busqueda uno",
+            "prompt": "select * from files",
+            "result": ""
+        },
+        {
+            "id": "2",
+            "name": "busqueda dos",
+            "prompt": "select * from tests",
+            "result": ""
+        },
+        {
+            "id": "3",
+            "name": "busqueda tres",
+            "prompt": "selec * from xxxxxxxxxxx",
+            "result": ""
+        }
+    ]
+}

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { insertTestsDB } from '@/vw/database/tests'
+import { populatesTests } from '@/vw/database/tests'
 
-export const useTestsToDB = () => {
+export const usePopulateTests = () => {
     return useQuery({
-        queryKey: ['teststodb'],
-        queryFn: insertTestsDB,
+        queryKey: ['populatetests'],
+        queryFn: populatesTests,
     })
 }

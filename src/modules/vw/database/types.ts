@@ -78,3 +78,10 @@ export interface MeasurementQuantity {
     min: string
     max: string
 }
+
+export interface Searches {
+    id: string
+    name: string
+    prompt: string
+    result: string
+}
