@@ -8,11 +8,20 @@ export function VWUploadTestsWidget() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, error, isFetching, isLoading } = useGetFileById(id as string)
 
-    console.log(data)
-
     return (
         <div data-testid="vw-upload-tests-widget" className={styles.container}>
-            <VWUploadFormComponent />
+            <VWUploadFormComponent
+                file={data}
+                onSubmit={async (fields: any) => {
+                    try {
+                        console.log('fields', fields)
+                        //router.replace(callbackUrl)
+                    } catch (e: any) {
+                        console.log('error aaaaaa', e)
+                        return 'Invalid credentials'
+                    }
+                }}
+            />
         </div>
     )
 }
