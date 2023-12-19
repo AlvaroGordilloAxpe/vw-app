@@ -1,12 +1,13 @@
 import Dexie from 'dexie'
 import type { Table } from 'dexie'
-import { File, Searches, Test, User } from './types'
+import { File, Searches, Test, User, Measurements } from './types'
 
 export class VWDatabase extends Dexie {
     users!: Table<User>
     files!: Table<File>
     tests!: Table<Test>
     searches!: Table<Searches>
+    measurements!: Table<Measurements>
 
     constructor() {
         super('vw_db')
@@ -16,6 +17,7 @@ export class VWDatabase extends Dexie {
             files: 'id, name',
             tests: 'id, name',
             searches: 'id, name',
+            measurements: 'id, name',
         })
     }
 }

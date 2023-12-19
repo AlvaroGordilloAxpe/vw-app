@@ -1,0 +1,31 @@
+{
+    "data": [
+        {
+            "name": "measurements one",
+            "id": "1",
+            "descrption": "",
+            "comment": "",
+            "testid": "test_01",
+            "testequipmentid": ["FETK:1", "CAN-Monitoring:1"],
+            "unitundertestid": ["unitundertest_1"]
+        },
+        {
+            "name": "measurements two",
+            "id": "2",
+            "descrption": "",
+            "comment": "",
+            "testid": "test_02",
+            "testequipmentid": ["FETK:2", "CAN-Monitoring:1"],
+            "unitundertestid": ["unitundertest_2"]
+        },
+        {
+            "name": "measurements three",
+            "id": "3",
+            "descrption": "",
+            "comment": "",
+            "testid": "test_03",
+            "testequipmentid": ["FETK:3", "CAN-Monitoring:3"],
+            "unitundertestid": ["unitundertest_3"]
+        }
+    ]
+}

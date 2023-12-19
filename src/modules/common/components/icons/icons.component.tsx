@@ -25,6 +25,7 @@ import {
     Instagram,
     Youtube,
     Eye,
+    Search,
 } from 'lucide-react'
 
 export const Icons = {
@@ -64,6 +65,7 @@ export const Icons = {
     copy: Copy,
     copyDone: ClipboardCheck,
     eye: Eye,
+    search: Search,
     // social icons
     twitter: Twitter,
     linkedin: Linkedin,
