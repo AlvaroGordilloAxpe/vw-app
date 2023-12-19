@@ -11,22 +11,31 @@ export function VWSearchMainComponent() {
             data-testid="vw-search-main-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
-            <Card.Root className="w-[80vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
+            <Card.Root className="w-[80vw] h-[85vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header className="flex flex-row justify-between">
                     <div>
                         <Card.Title className="text-2xl">
-                            sdfgsghsd gsdfgsd
+                            Search Data View
                         </Card.Title>
                         <Card.Description>
-                            afgsdgsdhsdgsdgsdgdsgsdgsdgsdgsdb.
+                            View about searching data and its results.
                         </Card.Description>
                     </div>
                 </Card.Header>
-                <Card.Content className="flex flex-row">
-                    <ScrollArea className="basis-1/3">
-                        <VWSearchFormComponent />
+                <Card.Content className="flex flex-row gap-x-8">
+                    <ScrollArea className="basis-1/5">
+                        <VWSearchFormComponent
+                            onSubmit={async (fields) => {
+                                try {
+                                    console.log('Fields', fields)
+                                } catch (e: any) {
+                                    console.log('error aaaaaa', e)
+                                    return 'Invalid credentials'
+                                }
+                            }}
+                        />
                     </ScrollArea>
-                    <ScrollArea className="basis-2/3 divide-x-2">
+                    <ScrollArea className="basis-4/5">
                         <VWSearchResultsComponent />
                     </ScrollArea>
                 </Card.Content>

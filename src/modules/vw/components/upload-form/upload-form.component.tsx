@@ -162,6 +162,10 @@ export function VWUploadFormComponent({
                                     )}
                                 />
                             </div>
+                            <Form.CustomMessage className="mt-8 ml-2" isError>
+                                {form.formState.errors.root?.submit?.message ||
+                                    null}
+                            </Form.CustomMessage>
                             <LoadingButton
                                 className="mt-8 ml-2"
                                 loading={form.formState.isSubmitting}

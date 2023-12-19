@@ -58,7 +58,7 @@ export interface UnitUnderTest {
 export interface Measurements {
     name: string
     id: string
-    descrption: string
+    description: string
     comment: string
     testid: string
     testequipmentid: string[]
