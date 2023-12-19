@@ -176,28 +176,3 @@ export function VWUploadFormComponent({
         </div>
     )
 }
-
-/*
-: async (data) => {
-            try {
-                console.log('data', data)
-
-                const response = await onSubmit(data)
-
-                if (!response) {
-                    form.setError('root.submit', {
-                        type: 'server',
-                        message: 'Network Error',
-                    })
-                }
-
-            } catch (e: any) {
-                console.error('UploadForm.onSubmit error', e)
-
-                form.setError('root.submit', {
-                    type: 'unknown',
-                    message: 'Unknown error',
-                })
-            }
-        },
-*/

@@ -1,0 +1,16 @@
+.container {
+    min-height: calc(100vh - 5rem);
+}
+
+.items:hover {
+    cursor: pointer;
+}
+
+.items[data-selected='true'] {
+    background-color: #fff;
+}
+
+.items[data-clicked='true'] {
+    background-color: rgb(241 245 249);
+    text-decoration: underline;
+}

@@ -2,9 +2,9 @@ import styles from './searches.module.css'
 import cn from 'classnames'
 import { usePopulateSearches, usePopulateMeasurements } from '@/vw/services'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
-import { VWAsideSearchComponent } from '@/vw/components/aside-search'
-import { VWMainSearchComponent } from '@/vw/components/main-search'
-import { VWProvider } from '@/vw/contexts/vw-context.provider'
+import { VWSearchAsideComponent } from '@/vw/components/search-aside'
+import { VWSearchMainComponent } from '@/vw/components/search-main'
+import { VWProvider } from '@/vw/contexts'
 
 export function VWSearchesWidget() {
     const searches = usePopulateSearches()
@@ -18,10 +18,10 @@ export function VWSearchesWidget() {
             {!searches.isLoading && !measurements.isLoading && (
                 <VWProvider>
                     <ScrollArea>
-                        <VWAsideSearchComponent />
+                        <VWSearchAsideComponent />
                     </ScrollArea>
                     <ScrollArea>
-                        <VWMainSearchComponent />
+                        <VWSearchMainComponent />
                     </ScrollArea>
                 </VWProvider>
             )}

@@ -1,21 +1,24 @@
-import styles from './aside-search.module.css'
+import styles from './search-aside.module.css'
 import cn from 'classnames'
 import { useGetSearches } from '@/vw/services'
 import * as Command from '@/common/components/ui/command'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
+import { useVWContext } from '@/vw/contexts'
 
-export function VWAsideSearchComponent() {
+export function VWSearchAsideComponent() {
     const { data, isLoading } = useGetSearches()
-    const [value, setValue] = useState('apple')
+    const [selectedItem, setSelectedItem] = useState('')
+    const { setSearchID } = useVWContext()
+    //const search = useCommandState((state) => state.search)
 
     return (
         <div
-            data-testid="vw-aside-search-component"
+            data-testid="vw-search-aside-component"
             className={cn(styles.container, 'bg-white')}
         >
             {!isLoading && data && (
-                <Command.Root value={value} onValueChange={setValue}>
+                <Command.Root>
                     <Command.Input
                         IconComponent={Search}
                         placeholder="Busca una opción"
@@ -25,8 +28,13 @@ export function VWAsideSearchComponent() {
                         <Command.Group>
                             {data.map((item) => (
                                 <Command.Item
+                                    data-clicked={item.name === selectedItem}
                                     key={item.id}
                                     className={styles.items}
+                                    onSelect={(value) => {
+                                        setSelectedItem(value)
+                                        setSearchID(item.id)
+                                    }}
                                 >
                                     {item.name}
                                 </Command.Item>
@@ -35,8 +43,6 @@ export function VWAsideSearchComponent() {
                     </Command.List>
                 </Command.Root>
             )}
-
-            <p>Selected: {value}</p>
         </div>
     )
 }
