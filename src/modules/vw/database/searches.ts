@@ -8,3 +8,11 @@ export const populteSearches = async () => {
         console.error(e)
     }
 }
+
+export const getSearches = async () => {
+    try {
+        return await db.searches.toArray()
+    } catch (e) {
+        console.error(e)
+    }
+}
