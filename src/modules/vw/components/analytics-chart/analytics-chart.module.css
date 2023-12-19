@@ -1,0 +1,11 @@
+.container {
+    min-height: calc(100vh - 5rem);
+}
+
+.canvas_chart {
+    & canvas {
+        width: 44vw !important;
+        height: 74vh !important;
+        margin: 0 auto;
+    }
+}

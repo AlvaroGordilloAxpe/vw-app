@@ -2,19 +2,18 @@ import styles from './files-list.module.css'
 import cn from 'classnames'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { useGetFiles } from '@/vw/services'
 import * as Card from '@/common/components/ui/card'
 import * as Table from '@/common/components/ui/table'
 import * as Tooltip from '@/common/components/ui/tooltip'
 import { Icons } from '@/common/components/icons'
 import { Button } from '@/common/components/ui/button'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
+import { useGetFiles } from '@/vw/services'
 
-export const UPLOAD_PATH = 'upload-form'
+const UPLOAD_PATH = 'upload-form'
 
 export function VWFilesList() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, error, isFetching, isLoading } = useGetFiles()
+    const { data, isFetching, isLoading } = useGetFiles()
     const pathName = usePathname()
 
     return (

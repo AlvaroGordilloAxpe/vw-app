@@ -85,3 +85,17 @@ export interface Searches {
     prompt: string
     result: string
 }
+
+export interface Analytics {
+    id: string
+    name: string
+    labels: string[]
+    datasets: {
+        label?: string
+        data: number[]
+        backgroundColor?: string[]
+        borderColor?: string[]
+        borderWidth?: number
+        hoverOffset?: number
+    }[]
+}
