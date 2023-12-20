@@ -18,7 +18,7 @@ export function VWAnalyticsListComponent() {
             data-testid="vw-analytics-list-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
-            <Card.Root className="w-1/3 h-[60vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
+            <Card.Root className="w-[50vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header>
                     <Card.Title className="text-2xl">Analytics List</Card.Title>
                     <Card.Description>
@@ -26,11 +26,8 @@ export function VWAnalyticsListComponent() {
                     </Card.Description>
                 </Card.Header>
                 <Card.Content>
-                    <ScrollArea>
+                    <ScrollArea className="h-[64vh]">
                         <Table.Root>
-                            <Table.Caption>
-                                A list of your analytics.
-                            </Table.Caption>
                             <Table.Header>
                                 <Table.Row>
                                     <Table.Head className="w-[200px]">

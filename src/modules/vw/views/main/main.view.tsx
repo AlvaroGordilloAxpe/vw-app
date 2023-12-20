@@ -10,7 +10,7 @@ export function VWMainView() {
             data-testid="vw-main-view"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
-            <Card.Root className="w-1/4 min-h-[30vh] bg-neutral-50">
+            <Card.Root className="w-1/4 bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header>
                     <Card.Title>Main Menu</Card.Title>
                     <Card.Description>
@@ -28,10 +28,6 @@ export function VWMainView() {
 
                     <Button size="lg" className="tracking-widest text-lg">
                         <Link href="/vw/searches">Search Data</Link>
-                    </Button>
-
-                    <Button size="lg" className="tracking-widest text-lg">
-                        <Link href="/vw/administration">Administration</Link>
                     </Button>
                 </Card.Content>
             </Card.Root>

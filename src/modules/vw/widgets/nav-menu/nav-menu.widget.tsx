@@ -21,19 +21,14 @@ const items: { title: string; href: string; description: string }[] = [
         description:
             'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
     },
-    {
-        title: 'Administration',
-        href: '/vw/administration',
-        description: 'Visually or semantically separates content.',
-    },
 ]
 
 export function VWNavMenuWidget() {
     return (
         <div data-testid="vw-nav-menu-widget" className={styles.container}>
             <NavigationMenu.Root>
-                <NavigationMenu.List>
-                    <NavigationMenu.Item>
+                <NavigationMenu.List className={styles.NavigationMenuList}>
+                    <NavigationMenu.Item className="sm:contents md:hidden lg:hidden xl:hidden">
                         <NavigationMenu.Trigger>
                             Main Menu
                         </NavigationMenu.Trigger>
@@ -51,6 +46,19 @@ export function VWNavMenuWidget() {
                             </ul>
                         </NavigationMenu.Content>
                     </NavigationMenu.Item>
+                    {items.map((item) => (
+                        <NavigationMenu.Item
+                            key={item.href}
+                            className="sm:hidden md:contents lg:contents xl:contents"
+                        >
+                            <NavigationMenu.Link
+                                href={item.href}
+                                className={styles.NavigationMenuLink}
+                            >
+                                {item.title}
+                            </NavigationMenu.Link>
+                        </NavigationMenu.Item>
+                    ))}
                 </NavigationMenu.List>
             </NavigationMenu.Root>
         </div>

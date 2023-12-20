@@ -1,2 +1,42 @@
 .container {
 }
+
+.NavigationMenuRoot {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    z-index: 1;
+}
+
+.NavigationMenuList {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 4px;
+    border-radius: 6px;
+    list-style: none;
+    box-shadow: 0 2px 10px var(--black-a7);
+    margin: 0;
+}
+
+.NavigationMenuTrigger,
+.NavigationMenuLink {
+    padding: 8px 12px;
+    outline: none;
+    user-select: none;
+    font-weight: 500;
+    line-height: 1;
+    border-radius: 4px;
+    font-size: 15px;
+    color: 0f172a;
+}
+.NavigationMenuTrigger:focus,
+.NavigationMenuLink:focus {
+    box-shadow: 0 0 0 2px lightgrey;
+}
+.NavigationMenuTrigger:hover,
+.NavigationMenuLink:hover {
+    background-color: #0f172a;
+    color: #fff;
+}

@@ -4,8 +4,8 @@
 
 .canvas_chart {
     & canvas {
-        width: 44vw !important;
-        height: 74vh !important;
-        margin: 0 auto;
+        width: 40vw !important;
+        height: 60vh !important;
+        margin: 1rem auto;
     }
 }

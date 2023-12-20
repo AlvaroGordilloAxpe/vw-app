@@ -21,21 +21,25 @@ export function VWFilesList() {
             data-testid="vw-files-list-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
-            <Card.Root className="w-4/5 h-[60vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
+            <Card.Root className="w-[90vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header className="flex flex-row justify-between">
-                    <Card.Title className="text-2xl">Tests List</Card.Title>
-                    <Card.Description>
+                    <div>
+                        <Card.Title className="text-2xl">Tests List</Card.Title>
+                        <Card.Description>
+                            A list of your tests.
+                        </Card.Description>
+                    </div>
+                    <div>
                         <Button disabled={isFetching}>
                             <Link href={`${pathName}/${UPLOAD_PATH}/0`}>
                                 Upload Tests
                             </Link>
                         </Button>
-                    </Card.Description>
+                    </div>
                 </Card.Header>
                 <Card.Content>
-                    <ScrollArea>
+                    <ScrollArea className="h-[64vh]">
                         <Table.Root>
-                            <Table.Caption>A list of your tests.</Table.Caption>
                             <Table.Header>
                                 <Table.Row>
                                     <Table.Head className="w-[200px]">
@@ -49,6 +53,94 @@ export function VWFilesList() {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
+                                {!isLoading && data ? (
+                                    data.map((item) => (
+                                        <Table.Row key={item.id}>
+                                            <Table.Cell className="font-medium">
+                                                {item.id}
+                                            </Table.Cell>
+                                            <Table.Cell>{item.name}</Table.Cell>
+                                            <Table.Cell>
+                                                {item.description}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item.comment}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item.mimetype}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <Tooltip.Provider>
+                                                    <Tooltip.Root>
+                                                        <Tooltip.Trigger>
+                                                            <Link
+                                                                href={`${pathName}/${UPLOAD_PATH}/${item.id}`}
+                                                            >
+                                                                <Icons.eye />
+                                                            </Link>
+                                                        </Tooltip.Trigger>
+                                                        <Tooltip.Content>
+                                                            {`View Test ${item.id}`}
+                                                        </Tooltip.Content>
+                                                    </Tooltip.Root>
+                                                </Tooltip.Provider>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    ))
+                                ) : (
+                                    <Table.Row>
+                                        <Table.Cell
+                                            colSpan={5}
+                                            className="text-center"
+                                        >
+                                            <Icons.spinner className="animate-spin w-8 h-8 mr-2 inline-block ml-4" />
+                                        </Table.Cell>
+                                    </Table.Row>
+                                )}
+                                {!isLoading && data ? (
+                                    data.map((item) => (
+                                        <Table.Row key={item.id}>
+                                            <Table.Cell className="font-medium">
+                                                {item.id}
+                                            </Table.Cell>
+                                            <Table.Cell>{item.name}</Table.Cell>
+                                            <Table.Cell>
+                                                {item.description}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item.comment}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item.mimetype}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <Tooltip.Provider>
+                                                    <Tooltip.Root>
+                                                        <Tooltip.Trigger>
+                                                            <Link
+                                                                href={`${pathName}/${UPLOAD_PATH}/${item.id}`}
+                                                            >
+                                                                <Icons.eye />
+                                                            </Link>
+                                                        </Tooltip.Trigger>
+                                                        <Tooltip.Content>
+                                                            {`View Test ${item.id}`}
+                                                        </Tooltip.Content>
+                                                    </Tooltip.Root>
+                                                </Tooltip.Provider>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    ))
+                                ) : (
+                                    <Table.Row>
+                                        <Table.Cell
+                                            colSpan={5}
+                                            className="text-center"
+                                        >
+                                            <Icons.spinner className="animate-spin w-8 h-8 mr-2 inline-block ml-4" />
+                                        </Table.Cell>
+                                    </Table.Row>
+                                )}
                                 {!isLoading && data ? (
                                     data.map((item) => (
                                         <Table.Row key={item.id}>

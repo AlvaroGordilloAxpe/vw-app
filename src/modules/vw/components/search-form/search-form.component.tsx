@@ -4,6 +4,7 @@ import { z } from 'zod'
 import * as Form from '@/common/components/ui/form'
 import { LoadingButton } from '@/common/components/loading-button'
 import { Input } from '@/common/components/ui/input'
+import { Button } from '@/common/components/ui/button'
 
 const schema = z.object({
     id: z.string(),
@@ -56,12 +57,12 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
             className={cn(styles.container, 'space-y-8 pl-1 pr-1')}
         >
             <Form.Root {...form}>
-                <div className="space-y-4">
+                <div className="flex flex-row gap-x-8">
                     <Form.Field
                         control={form.control}
                         name="id"
                         render={({ field }) => (
-                            <Form.Item>
+                            <Form.Item className="auto">
                                 <Form.Label>ID</Form.Label>
                                 <Form.Input>
                                     <Input type="text" {...field} />
@@ -74,7 +75,7 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
                         control={form.control}
                         name="name"
                         render={({ field }) => (
-                            <Form.Item>
+                            <Form.Item className="auto">
                                 <Form.Label>Name</Form.Label>
                                 <Form.Input>
                                     <Input type="text" {...field} />
@@ -87,7 +88,7 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
                         control={form.control}
                         name="testid"
                         render={({ field }) => (
-                            <Form.Item>
+                            <Form.Item className="auto">
                                 <Form.Label>Test ID</Form.Label>
                                 <Form.Input>
                                     <Input type="text" {...field} />
@@ -96,17 +97,21 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
                             </Form.Item>
                         )}
                     />
+                    <div className="basis-1/4 mt-8">
+                        <LoadingButton
+                            loading={form.formState.isSubmitting}
+                            type="submit"
+                        >
+                            Search
+                        </LoadingButton>
+                        <Button variant="secondary" className="ml-7">
+                            Save Search
+                        </Button>
+                    </div>
                 </div>
                 <Form.CustomMessage className="mt-8" isError>
                     {form.formState.errors.root?.submit?.message || null}
                 </Form.CustomMessage>
-                <LoadingButton
-                    className="mt-8"
-                    loading={form.formState.isSubmitting}
-                    type="submit"
-                >
-                    Create Search
-                </LoadingButton>
             </Form.Root>
         </div>
     )

@@ -20,6 +20,7 @@ export function VWSearchAsideComponent() {
             {!isLoading && data && (
                 <Command.Root>
                     <Command.Input
+                        className="p-1"
                         IconComponent={Search}
                         placeholder="Busca una opción"
                     />

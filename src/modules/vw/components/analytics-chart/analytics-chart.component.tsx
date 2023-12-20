@@ -19,7 +19,7 @@ export function VWAnalyticsChartComponent({ id }: { id: string | string[] }) {
             data-testid="vw-analytics-chart-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
-            <Card.Root className="w-2/3 h-[85vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
+            <Card.Root className="w-[50vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header className="flex flex-row justify-between">
                     <div>
                         <Card.Title className="text-2xl">
@@ -36,7 +36,7 @@ export function VWAnalyticsChartComponent({ id }: { id: string | string[] }) {
                             </Link>
                         </Button>
                         <Button size="sm" className="ml-2">
-                            Download CSV
+                            <Link href="">Download CSV</Link>
                         </Button>
                     </div>
                 </Card.Header>

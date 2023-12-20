@@ -10,6 +10,7 @@ import { LoadingButton } from '@/common/components/loading-button'
 import { Input } from '@/common/components/ui/input'
 import { File as FileType } from '@/vw/database/'
 import { Button } from '@/common/components/ui/button'
+import { useEffect } from 'react'
 
 const schema = z.object({
     apiFile: z.instanceof(File).optional(),
@@ -42,11 +43,11 @@ export function VWUploadFormComponent({
         schema,
         defaultValues: {
             apiFile: undefined,
-            id: file ? file.id : '',
-            name: file ? file.name : '',
-            description: file ? file.description : '',
-            comment: file ? file.comment : '',
-            mimetype: file ? file.mimetype : '',
+            id: '',
+            name: '',
+            description: '',
+            comment: '',
+            mimetype: '',
         },
         onSubmit: async (data) => {
             try {
@@ -69,12 +70,21 @@ export function VWUploadFormComponent({
         },
     })
 
+    useEffect(() => {
+        form.setValue('id', file?.id as string)
+        form.setValue('name', file?.name as string)
+        form.setValue('mimetype', file?.mimetype as string)
+        form.setValue('description', file?.description as string)
+        form.setValue('comment', file?.comment as string)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [file])
+
     return (
         <div
             data-testid="vw-upload-form-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
-            <Card.Root className="w-1/2 h-[70vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
+            <Card.Root className="w-[50vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header className="flex flex-row justify-between">
                     <div>
                         <Card.Title className="text-2xl">
@@ -93,27 +103,35 @@ export function VWUploadFormComponent({
                     </div>
                 </Card.Header>
                 <Card.Content>
-                    <ScrollArea>
-                        <Form.Root {...form}>
-                            <div className="space-y-4 pl-2 pr-2">
+                    <Form.Root {...form}>
+                        <div className="space-y-4 pl-2 pr-2">
+                            <ScrollArea className="h-[56vh]">
                                 <Form.Field
                                     control={form.control}
                                     name="apiFile"
                                     render={({ field }) => (
                                         <Form.Item>
                                             <Form.Label>
-                                                Suba colección de pruebas en
-                                                Postman aquí:
+                                                Select a new file
                                             </Form.Label>
                                             <Form.Input>
                                                 <Input
                                                     type="file"
-                                                    accept=".yaml, .yml, .json"
-                                                    onChange={(e) =>
+                                                    onChange={(e) => {
+                                                        const file =
+                                                            e.target.files?.[0]
+                                                        form.setValue(
+                                                            'name',
+                                                            file?.name as string
+                                                        )
+                                                        form.setValue(
+                                                            'mimetype',
+                                                            file?.type as string
+                                                        )
                                                         field.onChange(
                                                             e.target.files?.[0]
                                                         )
-                                                    }
+                                                    }}
                                                 />
                                             </Form.Input>
                                             <Form.Message />
@@ -150,12 +168,25 @@ export function VWUploadFormComponent({
                                 />
                                 <Form.Field
                                     control={form.control}
+                                    name="mimetype"
+                                    render={({ field }) => (
+                                        <Form.Item>
+                                            <Form.Label>Type</Form.Label>
+                                            <Form.Input>
+                                                <Input type="text" {...field} />
+                                            </Form.Input>
+                                            <Form.Message />
+                                        </Form.Item>
+                                    )}
+                                />
+                                <Form.Field
+                                    control={form.control}
                                     name="description"
                                     render={({ field }) => (
                                         <Form.Item>
                                             <Form.Label>Description</Form.Label>
                                             <Form.Input>
-                                                <Textarea rows={4} {...field} />
+                                                <Textarea {...field} />
                                             </Form.Input>
                                             <Form.Message />
                                         </Form.Item>
@@ -168,39 +199,26 @@ export function VWUploadFormComponent({
                                         <Form.Item>
                                             <Form.Label>Comment</Form.Label>
                                             <Form.Input>
-                                                <Textarea rows={4} {...field} />
+                                                <Textarea {...field} />
                                             </Form.Input>
                                             <Form.Message />
                                         </Form.Item>
                                     )}
                                 />
-                                <Form.Field
-                                    control={form.control}
-                                    name="mimetype"
-                                    render={({ field }) => (
-                                        <Form.Item>
-                                            <Form.Label>Type</Form.Label>
-                                            <Form.Input>
-                                                <Input type="text" {...field} />
-                                            </Form.Input>
-                                            <Form.Message />
-                                        </Form.Item>
-                                    )}
-                                />
-                            </div>
-                            <Form.CustomMessage className="mt-8 ml-2" isError>
-                                {form.formState.errors.root?.submit?.message ||
-                                    null}
-                            </Form.CustomMessage>
-                            <LoadingButton
-                                className="mt-8 ml-2"
-                                loading={form.formState.isSubmitting}
-                                type="submit"
-                            >
-                                Upload File
-                            </LoadingButton>
-                        </Form.Root>
-                    </ScrollArea>
+                            </ScrollArea>
+                        </div>
+                        <Form.CustomMessage className="mt-4 ml-2" isError>
+                            {form.formState.errors.root?.submit?.message ||
+                                null}
+                        </Form.CustomMessage>
+                        <LoadingButton
+                            className="mt-4 ml-2"
+                            loading={form.formState.isSubmitting}
+                            type="submit"
+                        >
+                            Upload File
+                        </LoadingButton>
+                    </Form.Root>
                 </Card.Content>
             </Card.Root>
         </div>

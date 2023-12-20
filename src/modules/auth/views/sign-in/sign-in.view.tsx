@@ -19,7 +19,7 @@ export function SignInView(props: SignInViewProps) {
                 'flex justify-center items-center bg-neutral-200'
             )}
         >
-            <Card.Root className="w-1/4 bg-neutral-50">
+            <Card.Root className="w-1/4 bg-neutral-50 shadow-xl shadow-slate-900/30">
                 <Card.Header>
                     <Card.Title>Account Sign In</Card.Title>
                     <Card.Description>
