@@ -8,10 +8,11 @@ import { ScrollArea } from '@/common/components/ui/scroll-area'
 import { Textarea } from '@/common/components/ui/textarea'
 import { LoadingButton } from '@/common/components/loading-button'
 import { Input } from '@/common/components/ui/input'
-import { File } from '@/vw/database/'
+import { File as FileType } from '@/vw/database/'
 import { Button } from '@/common/components/ui/button'
 
 const schema = z.object({
+    apiFile: z.instanceof(File).optional(),
     id: z.string(),
     name: z.string(),
     description: z.string(),
@@ -25,7 +26,7 @@ type UploadFormProps = Omit<
     React.HTMLAttributes<HTMLDivElement>,
     'onSubmit'
 > & {
-    file: File | null | undefined
+    file: FileType | null | undefined
     onSubmit: (fields: UploadFormDataType) => Promise<void | string>
 }
 
@@ -40,6 +41,7 @@ export function VWUploadFormComponent({
         criteriaMode: 'firstError',
         schema,
         defaultValues: {
+            apiFile: undefined,
             id: file ? file.id : '',
             name: file ? file.name : '',
             description: file ? file.description : '',
@@ -94,6 +96,30 @@ export function VWUploadFormComponent({
                     <ScrollArea>
                         <Form.Root {...form}>
                             <div className="space-y-4 pl-2 pr-2">
+                                <Form.Field
+                                    control={form.control}
+                                    name="apiFile"
+                                    render={({ field }) => (
+                                        <Form.Item>
+                                            <Form.Label>
+                                                Suba colección de pruebas en
+                                                Postman aquí:
+                                            </Form.Label>
+                                            <Form.Input>
+                                                <Input
+                                                    type="file"
+                                                    accept=".yaml, .yml, .json"
+                                                    onChange={(e) =>
+                                                        field.onChange(
+                                                            e.target.files?.[0]
+                                                        )
+                                                    }
+                                                />
+                                            </Form.Input>
+                                            <Form.Message />
+                                        </Form.Item>
+                                    )}
+                                />
                                 <Form.Field
                                     control={form.control}
                                     name="id"
