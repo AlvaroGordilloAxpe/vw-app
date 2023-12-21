@@ -1,22 +1,19 @@
 {
     "data": [
         {
-            "id": "1",
+            "id": 1,
             "name": "busqueda uno",
-            "prompt": "select * from files",
-            "result": ""
+            "prompt": "select * from files"
         },
         {
-            "id": "2",
+            "id": 2,
             "name": "busqueda dos",
-            "prompt": "select * from tests",
-            "result": ""
+            "prompt": "select * from tests"
         },
         {
-            "id": "3",
+            "id": 3,
             "name": "busqueda tres",
-            "prompt": "selec * from xxxxxxxxxxx",
-            "result": ""
+            "prompt": "selec * from xxxxxxxxxxx"
         }
     ]
 }

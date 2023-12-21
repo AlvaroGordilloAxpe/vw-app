@@ -80,10 +80,9 @@ export interface MeasurementQuantity {
 }
 
 export interface Searches {
-    id: string
+    id?: number
     name: string
     prompt: string
-    result: string
 }
 
 export interface Analytics {

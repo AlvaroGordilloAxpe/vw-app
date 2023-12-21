@@ -17,7 +17,7 @@ export class VWDatabase extends Dexie {
             users: 'id, email',
             files: 'id',
             tests: 'id',
-            searches: 'id',
+            searches: '++id',
             measurements: 'id',
             analytics: 'id',
         })

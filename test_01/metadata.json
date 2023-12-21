@@ -1,0 +1,101 @@
+{
+    "file": [
+        {
+            "comment": "Datenbank: 1,5l EA211Evo \nExperiment: EA211_MG1_OBD_v28\nArbeitsumgebung: ...",
+            "description": "file description",
+            "id": "00001_200114_cilcn_mager_zyl0_fe1.dat",
+            "mimetype": "MDF3",
+            "name": "00001_200114_cilcn_mager_zyl0_fe1.dat"
+        },
+        {
+            "comment": "DiagRA D Version 7.37.39.40273",
+            "description": "DiagRA-Shot vor Messung",
+            "id": "00001_200114_cilcn_mager_zyl0_fe1_DiagRA_1.xml",
+            "mimetype": ".xml",
+            "name": "00001_200114_cilcn_mager_zyl0_fe1_DiagRA_1.xml"
+        },
+        {
+            "comment": "DiagRA D Version 7.37.39.40273",
+            "description": "DiagRA-Shot nach Messung",
+            "id": "00001_200114_cilcn_mager_zyl0_fe1_DiagRA_2.xml",
+            "mimetype": ".xml",
+            "name": "00001_200114_cilcn_mager_zyl0_fe1_DiagRA_2.xml"
+        }
+    ],
+    "measurementquantity": [
+        {
+            "ao_file_children": "00001_200114_cilcn_mager_zyl0_fe1.dat",
+            "comment": "",
+            "descrption": "Mittlere Motordrehzahl über ein Zylindersegment",
+            "group": "",
+            "id": "1",
+            "max": "2511",
+            "min": "0",
+            "name": "Epm_nEng",
+            "testequipmentid": "FETK:1",
+            "unit": "rpm",
+            "value": ""
+        }
+    ],
+    "measurements": {
+        "comment": "",
+        "descrption": "",
+        "id": "measurements_1",
+        "name": "measurements",
+        "testequipmentid": [
+            "FETK:1",
+            "CAN-Monitoring:1"
+        ],
+        "testid": "test_01",
+        "unitundertestid": [
+            "unitundertest_1"
+        ]
+    },
+    "test": {
+        "Client": "Surname, Johannes",
+        "comment": "",
+        "CostCenter": "1687",
+        "Department": "EACO/1",
+        "description": "FTP75 OBD",
+        "EmissionStandard": "SULEV20 / 150.000 mi",
+        "id": "test_01",
+        "JobNumber": "21210",
+        "name": "test_01",
+        "ProjectName": "1,5l 118 kW TSI AQ300",
+        "VehicleName": "VW316580110"
+    },
+    "testequipment": [
+        {
+            "ao_file_children": [
+                "00001_200114_cilcn_mager_zyl0_fe1.dat"
+            ],
+            "comment": "",
+            "descrption": "",
+            "id": "FETK:1",
+            "name": "FETK:1",
+            "serialnumber": "",
+            "type": "ES595"
+        },
+        {
+            "ao_file_children": [
+                "00001_200114_cilcn_mager_zyl0_fe1.dat"
+            ],
+            "comment": "",
+            "descrption": "",
+            "id": "CAN-Monitoring:1",
+            "name": "CAN-Monitoring:1",
+            "serialnumber": "",
+            "type": "ES595"
+        }
+    ],
+    "unitundertest": [
+        {
+            "ao_file_children": "",
+            "comment": "",
+            "descrption": "Katalysator",
+            "group": "",
+            "id": "unitundertest_1",
+            "name": "Catalysatortype"
+        }
+    ]
+}
