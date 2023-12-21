@@ -1,17 +1,38 @@
 import styles from './analytics-list.module.css'
 import cn from 'classnames'
-import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
 import * as Card from '@/common/components/ui/card'
 import * as Table from '@/common/components/ui/table'
-import * as Tooltip from '@/common/components/ui/tooltip'
+import * as Dialog from '@/common/components/ui/dialog'
 import { Icons } from '@/common/components/icons'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
+import { Button } from '@/common/components/ui/button'
+import { VWAnalyticsChartComponent } from '@/vw/components/analytics-chart'
 import { useGetAnalytics } from '@/vw/services'
 
-const PATH_ANALYTICS = 'analytics'
+export const VWMetricsDialog = ({ id }: { id: string }) => {
+    return (
+        <Dialog.Root>
+            <Dialog.Trigger asChild>
+                <Button variant="link" size="sm" title={`Metrics ${id}`}>
+                    <Icons.eye />
+                </Button>
+            </Dialog.Trigger>
+            <Dialog.Modal className="max-w-[60vw] max-h-[95vh]">
+                <Dialog.Header>
+                    <Dialog.Title>Metrics {id}</Dialog.Title>
+                    <VWAnalyticsChartComponent id={id} />
+                </Dialog.Header>
+            </Dialog.Modal>
+        </Dialog.Root>
+    )
+}
 
 export function VWAnalyticsListComponent() {
     const { data, isLoading } = useGetAnalytics()
+    const router = useRouter()
+    const { id } = useParams()
+    console.log(id)
 
     return (
         <div
@@ -19,11 +40,18 @@ export function VWAnalyticsListComponent() {
             className={cn(styles.container, 'flex justify-center items-center')}
         >
             <Card.Root className="w-[50vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
-                <Card.Header>
-                    <Card.Title className="text-2xl">Analytics List</Card.Title>
-                    <Card.Description>
-                        A list of analytics and its metrics data.
-                    </Card.Description>
+                <Card.Header className="flex flex-row justify-between">
+                    <div>
+                        <Card.Title className="text-2xl">
+                            Analytics List
+                        </Card.Title>
+                        <Card.Description>
+                            A list of analytics and its metrics data.
+                        </Card.Description>
+                    </div>
+                    <div>
+                        <Button onClick={() => router.back()}>Go Back</Button>
+                    </div>
                 </Card.Header>
                 <Card.Content>
                     <ScrollArea className="h-[64vh]">
@@ -45,20 +73,7 @@ export function VWAnalyticsListComponent() {
                                             </Table.Cell>
                                             <Table.Cell>{item.name}</Table.Cell>
                                             <Table.Cell>
-                                                <Tooltip.Provider>
-                                                    <Tooltip.Root>
-                                                        <Tooltip.Trigger>
-                                                            <Link
-                                                                href={`${PATH_ANALYTICS}/${item.id}`}
-                                                            >
-                                                                <Icons.eye />
-                                                            </Link>
-                                                        </Tooltip.Trigger>
-                                                        <Tooltip.Content>
-                                                            {`View Metric ${item.id}`}
-                                                        </Tooltip.Content>
-                                                    </Tooltip.Root>
-                                                </Tooltip.Provider>
+                                                <VWMetricsDialog id={item.id} />
                                             </Table.Cell>
                                         </Table.Row>
                                     ))

@@ -5,5 +5,5 @@ export type ValidationError = {
 
 export type UploadFileFormDataType = {
     metadata?: File
-    files?: FileList
+    files?: File[]
 }

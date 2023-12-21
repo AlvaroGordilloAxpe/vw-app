@@ -11,7 +11,7 @@ import { Button } from '@/common/components/ui/button'
 
 const schema = z.object({
     metadata: z.instanceof(File).optional(),
-    files: z.instanceof(FileList).optional(),
+    files: z.instanceof(File).array().optional(),
 })
 
 export type UploadFormDataType = z.infer<typeof schema>
@@ -95,10 +95,6 @@ export function VWUploadFilesComponent({
                                                     accept=".json"
                                                     type="file"
                                                     onChange={(e) => {
-                                                        console.log(
-                                                            'metadata',
-                                                            e.target.files?.[0]
-                                                        )
                                                         field.onChange(
                                                             e.target.files?.[0]
                                                         )
@@ -131,16 +127,19 @@ export function VWUploadFilesComponent({
                                                                       archivos
                                                                   )
                                                                 : []
-                                                        console.log(
-                                                            'files',
-                                                            archivos_values
-                                                        )
                                                         field.onChange(
                                                             archivos_values
                                                         )
                                                     }}
                                                 />
                                             </Form.Input>
+                                            {field &&
+                                                field.value &&
+                                                field.value.map((file) => (
+                                                    <pre key={file.name}>
+                                                        {file.name}
+                                                    </pre>
+                                                ))}
                                             <Form.Message />
                                         </Form.Item>
                                     )}

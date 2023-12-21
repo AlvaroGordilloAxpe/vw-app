@@ -14,7 +14,7 @@ export function VWUploadFilesWidget() {
 
                         //router.replace(callbackUrl)
                     } catch (e: any) {
-                        console.log('error aaaaaa', e)
+                        console.log('error', e)
                         return 'Invalid credentials'
                     }
                 }}

@@ -26,6 +26,7 @@ import {
     Youtube,
     Eye,
     Search,
+    LineChart,
 } from 'lucide-react'
 
 export const Icons = {
@@ -53,6 +54,7 @@ export const Icons = {
     user: User,
     arrowRight: ArrowRight,
     check: Check,
+    lineChart: LineChart,
     // action icons
     darkTheme: Moon,
     lightTheme: SunMedium,

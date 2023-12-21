@@ -5,22 +5,24 @@ import { UPLOAD_FILES } from './constants'
 
 export const uploadFilesApi = async ({
     metadata,
-    files,
+    files = [],
 }: UploadFileFormDataType) => {
     const formData = new FormData()
 
     formData.append('metadata', metadata as Blob)
 
-    const archivos = files ? Object.values(files) : []
-
-    for (const file of archivos) {
+    files.forEach((file) => {
         formData.append('files[]', file as Blob)
-    }
+    })
 
     return await api
         .post(`/${UPLOAD_FILES}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
+            },
+            auth: {
+                username: 'admin',
+                password: 'admin',
             },
         })
         .then((response) => response)

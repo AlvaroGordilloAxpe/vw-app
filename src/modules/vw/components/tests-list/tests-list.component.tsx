@@ -12,6 +12,7 @@ import { useGetTests } from '@/vw/services'
 import { Test } from '@/vw/database'
 
 const UPLOAD_PATH = 'upload-files'
+const ANALYTICS_PATH = '/vw/analytics'
 
 export const VWTestInfoDialog = ({ item }: { item: Test }) => {
     return (
@@ -107,8 +108,20 @@ export function VWTestsListComponent() {
                                             <Table.Cell>
                                                 {item.comment}
                                             </Table.Cell>
-                                            <Table.Cell>
+                                            <Table.Cell className="text-right w-[200px]">
                                                 <VWTestInfoDialog item={item} />
+                                                <Button
+                                                    className="ml-4"
+                                                    title={`View Analytics ${item.id}`}
+                                                    size="sm"
+                                                    variant="link"
+                                                >
+                                                    <Link
+                                                        href={`${ANALYTICS_PATH}/${item.id}`}
+                                                    >
+                                                        <Icons.lineChart />
+                                                    </Link>
+                                                </Button>
                                             </Table.Cell>
                                         </Table.Row>
                                     ))
