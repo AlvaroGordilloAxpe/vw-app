@@ -19,7 +19,7 @@ export function VWMainView() {
                 </Card.Header>
                 <Card.Content className="flex flex-col gap-8">
                     <Button size="lg" className="tracking-widest text-lg">
-                        <Link href="/vw/documents-list">Documents List</Link>
+                        <Link href="/vw/tests-list">Documents List</Link>
                     </Button>
 
                     <Button size="lg" className="tracking-widest text-lg">

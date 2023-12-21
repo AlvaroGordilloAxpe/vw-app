@@ -1,4 +1,4 @@
-import styles from './files-list.module.css'
+import styles from './tests-list.module.css'
 import cn from 'classnames'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -10,15 +10,15 @@ import { Button } from '@/common/components/ui/button'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
 import { useGetFiles } from '@/vw/services'
 
-const UPLOAD_PATH = 'upload-form'
+const UPLOAD_PATH = 'upload-files'
 
-export function VWFilesList() {
+export function VWTestsListComponent() {
     const { data, isFetching, isLoading } = useGetFiles()
     const pathName = usePathname()
 
     return (
         <div
-            data-testid="vw-files-list-component"
+            data-testid="vw-tests-list-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
             <Card.Root className="w-[90vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
@@ -31,7 +31,7 @@ export function VWFilesList() {
                     </div>
                     <div>
                         <Button disabled={isFetching}>
-                            <Link href={`${pathName}/${UPLOAD_PATH}/0`}>
+                            <Link href={`${pathName}/${UPLOAD_PATH}`}>
                                 Upload Tests
                             </Link>
                         </Button>

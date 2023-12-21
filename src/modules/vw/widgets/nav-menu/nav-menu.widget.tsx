@@ -5,7 +5,7 @@ import { VWNavItemComponent as NavItemLink } from '@/vw/components/nav-item'
 const items: { title: string; href: string; description: string }[] = [
     {
         title: 'Documents List',
-        href: '/vw/documents-list',
+        href: '/vw/tests-list',
         description:
             'A modal dialog that interrupts the user with important content and expects a response.',
     },

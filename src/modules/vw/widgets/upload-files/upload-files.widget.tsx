@@ -1,16 +1,16 @@
-import styles from './upload-tests.module.css'
+import styles from './upload-files.module.css'
 import { useParams } from 'next/navigation'
+import { VWUploadFilesComponent } from '@/vw/components/upload-files'
 import { useGetFileById } from '@/vw/services'
-import { VWUploadFormComponent } from '@/vw/components/upload-form'
 
-export function VWUploadTestsWidget() {
+export function VWUploadFilesWidget() {
     const { id } = useParams()
     const { data, isLoading } = useGetFileById(id as string)
 
     return (
-        <div data-testid="vw-upload-tests-widget" className={styles.container}>
+        <div data-testid="vw-upload-files-widget" className={styles.container}>
             {!isLoading && (
-                <VWUploadFormComponent
+                <VWUploadFilesComponent
                     file={data}
                     onSubmit={async (fields: any) => {
                         try {

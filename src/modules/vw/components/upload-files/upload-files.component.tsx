@@ -1,4 +1,4 @@
-import styles from './upload-form.module.css'
+import styles from './upload-files.module.css'
 import cn from 'classnames'
 import { z } from 'zod'
 import Link from 'next/link'
@@ -33,7 +33,7 @@ type UploadFormProps = Omit<
 
 const UPLOAD_LIST = 'vw/documents-list'
 
-export function VWUploadFormComponent({
+export function VWUploadFilesComponent({
     file,
     onSubmit,
     ...props
@@ -81,7 +81,7 @@ export function VWUploadFormComponent({
 
     return (
         <div
-            data-testid="vw-upload-form-component"
+            data-testid="vw-upload-files-component"
             className={cn(styles.container, 'flex justify-center items-center')}
         >
             <Card.Root className="w-[50vw] h-[80vh] bg-neutral-50 shadow-xl shadow-slate-900/30">
