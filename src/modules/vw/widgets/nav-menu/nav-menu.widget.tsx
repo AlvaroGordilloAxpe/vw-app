@@ -2,24 +2,14 @@ import styles from './nav-menu.module.css'
 import * as NavigationMenu from '@/common/components/ui/navigation-menu'
 import { VWNavItemComponent as NavItemLink } from '@/vw/components/nav-item'
 
-const items: { title: string; href: string; description: string }[] = [
+const items: { title: string; href: string }[] = [
     {
-        title: 'Documents List',
+        title: 'Tests List',
         href: '/vw/tests-list',
-        description:
-            'A modal dialog that interrupts the user with important content and expects a response.',
-    },
-    {
-        title: 'Analytics',
-        href: '/vw/analytics',
-        description:
-            'For sighted users to preview content available behind a link.',
     },
     {
         title: 'Search Data',
         href: '/vw/searches',
-        description:
-            'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
     },
 ]
 
@@ -39,9 +29,7 @@ export function VWNavMenuWidget() {
                                         key={item.title}
                                         title={item.title}
                                         href={item.href}
-                                    >
-                                        {item.description}
-                                    </NavItemLink>
+                                    />
                                 ))}
                             </ul>
                         </NavigationMenu.Content>

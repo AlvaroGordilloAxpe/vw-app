@@ -5,36 +5,27 @@ import Link from 'next/link'
 import * as Card from '@/common/components/ui/card'
 import * as Form from '@/common/components/ui/form'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
-import { Textarea } from '@/common/components/ui/textarea'
 import { LoadingButton } from '@/common/components/loading-button'
 import { Input } from '@/common/components/ui/input'
-import { File as FileType } from '@/vw/database/'
 import { Button } from '@/common/components/ui/button'
-import { useEffect } from 'react'
 
 const schema = z.object({
-    apiFile: z.instanceof(File).optional(),
-    id: z.string(),
-    name: z.string(),
-    description: z.string(),
-    comment: z.string(),
-    mimetype: z.string(),
+    metadata: z.instanceof(File).optional(),
+    xmldats: z.instanceof(FileList).optional(),
 })
 
-type UploadFormDataType = z.infer<typeof schema>
+export type UploadFormDataType = z.infer<typeof schema>
 
 type UploadFormProps = Omit<
     React.HTMLAttributes<HTMLDivElement>,
     'onSubmit'
 > & {
-    file: FileType | null | undefined
     onSubmit: (fields: UploadFormDataType) => Promise<void | string>
 }
 
-const UPLOAD_LIST = 'vw/documents-list'
+const TESTS_LIST = 'vw/tests-list'
 
 export function VWUploadFilesComponent({
-    file,
     onSubmit,
     ...props
 }: UploadFormProps) {
@@ -42,12 +33,8 @@ export function VWUploadFilesComponent({
         criteriaMode: 'firstError',
         schema,
         defaultValues: {
-            apiFile: undefined,
-            id: '',
-            name: '',
-            description: '',
-            comment: '',
-            mimetype: '',
+            metadata: undefined,
+            xmldats: undefined,
         },
         onSubmit: async (data) => {
             try {
@@ -70,15 +57,6 @@ export function VWUploadFilesComponent({
         },
     })
 
-    useEffect(() => {
-        form.setValue('id', file?.id as string)
-        form.setValue('name', file?.name as string)
-        form.setValue('mimetype', file?.mimetype as string)
-        form.setValue('description', file?.description as string)
-        form.setValue('comment', file?.comment as string)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [file])
-
     return (
         <div
             data-testid="vw-upload-files-component"
@@ -88,17 +66,15 @@ export function VWUploadFilesComponent({
                 <Card.Header className="flex flex-row justify-between">
                     <div>
                         <Card.Title className="text-2xl">
-                            Upload Form
+                            Upload Files
                         </Card.Title>
                         <Card.Description>
-                            {!file
-                                ? 'Upload New File.'
-                                : `Edit File ${file.id}`}
+                            Form to upload metadata and others files
                         </Card.Description>
                     </div>
                     <div>
                         <Button>
-                            <Link href={`/${UPLOAD_LIST}`}>Documents List</Link>
+                            <Link href={`/${TESTS_LIST}`}>Tests List</Link>
                         </Button>
                     </div>
                 </Card.Header>
@@ -108,25 +84,20 @@ export function VWUploadFilesComponent({
                             <ScrollArea className="h-[56vh]">
                                 <Form.Field
                                     control={form.control}
-                                    name="apiFile"
+                                    name="metadata"
                                     render={({ field }) => (
                                         <Form.Item>
                                             <Form.Label>
-                                                Select a new file
+                                                Select a new metadata
                                             </Form.Label>
                                             <Form.Input>
                                                 <Input
+                                                    accept=".json"
                                                     type="file"
                                                     onChange={(e) => {
-                                                        const file =
+                                                        console.log(
+                                                            'metadata',
                                                             e.target.files?.[0]
-                                                        form.setValue(
-                                                            'name',
-                                                            file?.name as string
-                                                        )
-                                                        form.setValue(
-                                                            'mimetype',
-                                                            file?.type as string
                                                         )
                                                         field.onChange(
                                                             e.target.files?.[0]
@@ -140,66 +111,28 @@ export function VWUploadFilesComponent({
                                 />
                                 <Form.Field
                                     control={form.control}
-                                    name="id"
+                                    name="xmldats"
                                     render={({ field }) => (
-                                        <Form.Item>
+                                        <Form.Item className="mt-6">
+                                            <Form.Label>
+                                                Select xml and dat files
+                                            </Form.Label>
                                             <Form.Input>
                                                 <Input
-                                                    type="hidden"
-                                                    {...field}
+                                                    type="file"
+                                                    accept=".xml, .dat"
+                                                    multiple
+                                                    onChange={(e) => {
+                                                        console.log(
+                                                            'xmldats',
+                                                            e.target.files
+                                                        )
+                                                        field.onChange(
+                                                            e.target.files ??
+                                                                undefined
+                                                        )
+                                                    }}
                                                 />
-                                            </Form.Input>
-                                            <Form.Message />
-                                        </Form.Item>
-                                    )}
-                                />
-                                <Form.Field
-                                    control={form.control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <Form.Item>
-                                            <Form.Label>Name</Form.Label>
-                                            <Form.Input>
-                                                <Input type="text" {...field} />
-                                            </Form.Input>
-                                            <Form.Message />
-                                        </Form.Item>
-                                    )}
-                                />
-                                <Form.Field
-                                    control={form.control}
-                                    name="mimetype"
-                                    render={({ field }) => (
-                                        <Form.Item>
-                                            <Form.Label>Type</Form.Label>
-                                            <Form.Input>
-                                                <Input type="text" {...field} />
-                                            </Form.Input>
-                                            <Form.Message />
-                                        </Form.Item>
-                                    )}
-                                />
-                                <Form.Field
-                                    control={form.control}
-                                    name="description"
-                                    render={({ field }) => (
-                                        <Form.Item>
-                                            <Form.Label>Description</Form.Label>
-                                            <Form.Input>
-                                                <Textarea {...field} />
-                                            </Form.Input>
-                                            <Form.Message />
-                                        </Form.Item>
-                                    )}
-                                />
-                                <Form.Field
-                                    control={form.control}
-                                    name="comment"
-                                    render={({ field }) => (
-                                        <Form.Item>
-                                            <Form.Label>Comment</Form.Label>
-                                            <Form.Input>
-                                                <Textarea {...field} />
                                             </Form.Input>
                                             <Form.Message />
                                         </Form.Item>
