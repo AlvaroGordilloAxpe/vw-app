@@ -1,15 +1,21 @@
 import { api } from './axios-instance'
 import { handleError } from './utils'
 import { UploadFileFormDataType } from './types'
-import { QueryFunctionContext } from '@tanstack/react-query'
 import { UPLOAD_FILES } from './constants'
 
-export const uploadFilesApi = async ({ queryKey }: QueryFunctionContext) => {
-    const [, fields] = queryKey
-    const data = fields as UploadFileFormDataType
+export const uploadFilesApi = async ({
+    metadata,
+    files,
+}: UploadFileFormDataType) => {
     const formData = new FormData()
 
-    formData.append('file', data.metadata as Blob)
+    formData.append('metadata', metadata as Blob)
+
+    const archivos = files ? Object.values(files) : []
+
+    for (const file of archivos) {
+        formData.append('files[]', file as Blob)
+    }
 
     return await api
         .post(`/${UPLOAD_FILES}`, formData, {

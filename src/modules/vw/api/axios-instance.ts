@@ -8,6 +8,10 @@ export const api: AxiosInstance = axios.create({
         'Accept-Language': 'es-ES',
         'Content-Type': 'application/json',
     },
+    auth: {
+        username: 'admin',
+        password: 'admin',
+    },
 })
 
 export const isAxiosError = axios.isAxiosError

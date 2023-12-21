@@ -16,7 +16,7 @@ export const useGetTests = () => {
     })
 }
 
-export const useInsertFiles = (fields: UploadFileFormDataType) => {
+export const InsertFilesQuery = (fields: UploadFileFormDataType) => {
     return useQuery({
         queryKey: ['insertfiles', fields],
         queryFn: uploadFilesApi,

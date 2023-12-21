@@ -4,6 +4,6 @@ export type ValidationError = {
 }
 
 export type UploadFileFormDataType = {
-    metadata?: File | undefined
-    xmldats?: FileList | undefined
+    metadata?: File
+    files?: FileList
 }

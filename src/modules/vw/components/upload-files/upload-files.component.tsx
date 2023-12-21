@@ -11,7 +11,7 @@ import { Button } from '@/common/components/ui/button'
 
 const schema = z.object({
     metadata: z.instanceof(File).optional(),
-    xmldats: z.instanceof(FileList).optional(),
+    files: z.instanceof(FileList).optional(),
 })
 
 export type UploadFormDataType = z.infer<typeof schema>
@@ -34,7 +34,7 @@ export function VWUploadFilesComponent({
         schema,
         defaultValues: {
             metadata: undefined,
-            xmldats: undefined,
+            files: undefined,
         },
         onSubmit: async (data) => {
             try {
@@ -111,7 +111,7 @@ export function VWUploadFilesComponent({
                                 />
                                 <Form.Field
                                     control={form.control}
-                                    name="xmldats"
+                                    name="files"
                                     render={({ field }) => (
                                         <Form.Item className="mt-6">
                                             <Form.Label>
@@ -123,13 +123,20 @@ export function VWUploadFilesComponent({
                                                     accept=".xml, .dat"
                                                     multiple
                                                     onChange={(e) => {
-                                                        console.log(
-                                                            'xmldats',
+                                                        const archivos =
                                                             e.target.files
+                                                        const archivos_values =
+                                                            archivos
+                                                                ? Object.values(
+                                                                      archivos
+                                                                  )
+                                                                : []
+                                                        console.log(
+                                                            'files',
+                                                            archivos_values
                                                         )
                                                         field.onChange(
-                                                            e.target.files ??
-                                                                undefined
+                                                            archivos_values
                                                         )
                                                     }}
                                                 />
