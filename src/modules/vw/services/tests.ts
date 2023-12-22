@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { populatesTests, getTests } from '@/vw/database/tests'
-import { UploadFileFormDataType, uploadFilesApi } from '@/vw/api'
+import { populatesTests } from '@/vw/database/tests'
+import { getTestsApi, getTestByIdApi } from '@/vw/api'
+//import { UploadFileFormDataType, uploadFilesApi } from '@/vw/api'
 
 export const usePopulateTests = () => {
     return useQuery({
@@ -12,13 +13,13 @@ export const usePopulateTests = () => {
 export const useGetTests = () => {
     return useQuery({
         queryKey: ['gettests'],
-        queryFn: getTests,
+        queryFn: getTestsApi,
     })
 }
 
-export const InsertFilesQuery = (fields: UploadFileFormDataType) => {
+export const useGetTestBiId = (id: number) => {
     return useQuery({
-        queryKey: ['insertfiles', fields],
-        queryFn: uploadFilesApi,
+        queryKey: ['gettestbyid', id],
+        queryFn: getTestByIdApi,
     })
 }

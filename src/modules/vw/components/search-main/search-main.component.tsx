@@ -4,8 +4,15 @@ import * as Card from '@/common/components/ui/card'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
 import { VWSearchFormComponent } from '@/vw/components/search-form'
 import { VWSearchResultsComponent } from '@/vw/components/search-results'
+import { getMeasurentsByTestNameApi } from '@/vw/api'
+import { MeasurementQuantityDataType } from '@/vw/api'
+import { useState } from 'react'
 
 export function VWSearchMainComponent() {
+    const [measurements, setMeasurements] = useState<
+        MeasurementQuantityDataType[]
+    >([])
+
     return (
         <div
             data-testid="vw-search-main-component"
@@ -28,14 +35,20 @@ export function VWSearchMainComponent() {
                             <VWSearchFormComponent
                                 onSubmit={async (fields) => {
                                     try {
-                                        console.log('Fields', fields)
+                                        const results =
+                                            await getMeasurentsByTestNameApi(
+                                                fields.name
+                                            )
+                                        if (results) setMeasurements(results)
                                     } catch (e: any) {
                                         console.log('error aaaaaa', e)
                                         return 'Invalid credentials'
                                     }
                                 }}
                             />
-                            <VWSearchResultsComponent />
+                            <VWSearchResultsComponent
+                                measurements={measurements}
+                            />
                         </div>
                     </ScrollArea>
                 </Card.Content>

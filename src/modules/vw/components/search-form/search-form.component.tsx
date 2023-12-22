@@ -8,12 +8,9 @@ import { Button } from '@/common/components/ui/button'
 import * as Dialog from '@/common/components/ui/dialog'
 import { useVWContext } from '@/vw/contexts'
 import { useGetSearchById } from '@/vw/services'
-import { Searches } from '@/vw/database'
 
 const schema = z.object({
-    id: z.string(),
     name: z.string(),
-    testid: z.string(),
 })
 const schemaDialog = z.object({
     titulo: z.string(),
@@ -33,25 +30,17 @@ type SearchFormProps = Omit<
 export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
     const { searchID } = useVWContext()
     const { data } = useGetSearchById(searchID)
+    console.log('indexeddbdata', data)
 
     const form = Form.useZodForm<SearchFormDataType>({
         criteriaMode: 'firstError',
         schema,
         defaultValues: {
-            id: '',
             name: '',
-            testid: '',
         },
         onSubmit: async (data) => {
             try {
-                const response = await onSubmit(data)
-
-                if (!response) {
-                    form.setError(ROOT_SUBMIT, {
-                        type: 'server',
-                        message: 'Network Error',
-                    })
-                }
+                await onSubmit(data)
             } catch (e: any) {
                 console.error('UploadForm.onSubmit error', e)
 
@@ -62,6 +51,7 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
             }
         },
     })
+
     const formDialog = Form.useZodForm<SearchFormDialogDataType>({
         criteriaMode: 'firstError',
         schema: schemaDialog,
@@ -114,11 +104,7 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
                                         onBlur={onBlur}
                                         onChange={onChange}
                                         ref={ref}
-                                        value={
-                                            data && data?.prompt
-                                                ? data.prompt
-                                                : value
-                                        }
+                                        value={value}
                                     />
                                 </Form.Input>
                                 <Form.Message />

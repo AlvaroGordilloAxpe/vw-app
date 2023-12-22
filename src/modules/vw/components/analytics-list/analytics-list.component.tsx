@@ -8,9 +8,10 @@ import { Icons } from '@/common/components/icons'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
 import { Button } from '@/common/components/ui/button'
 import { VWAnalyticsChartComponent } from '@/vw/components/analytics-chart'
-import { useGetAnalytics } from '@/vw/services'
+import { useGetTestBiId } from '@/vw/services'
 
-export const VWMetricsDialog = ({ id }: { id: string }) => {
+export const VWMetricsDialog = ({ id }: { id: number }) => {
+    console.log('VWMetricsDialog', id)
     return (
         <Dialog.Root>
             <Dialog.Trigger asChild>
@@ -29,10 +30,9 @@ export const VWMetricsDialog = ({ id }: { id: string }) => {
 }
 
 export function VWAnalyticsListComponent() {
-    const { data, isLoading } = useGetAnalytics()
+    const { id }: { id: string } = useParams()
+    const { data } = useGetTestBiId(id ? parseInt(id) : 1)
     const router = useRouter()
-    const { id } = useParams()
-    console.log(id)
 
     return (
         <div
@@ -65,18 +65,44 @@ export function VWAnalyticsListComponent() {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {!isLoading && data ? (
-                                    data.map((item) => (
-                                        <Table.Row key={item.id}>
-                                            <Table.Cell className="font-medium">
-                                                {item.id}
-                                            </Table.Cell>
-                                            <Table.Cell>{item.name}</Table.Cell>
-                                            <Table.Cell>
-                                                <VWMetricsDialog id={item.id} />
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    ))
+                                {data ? (
+                                    data.measurementQuantityList?.map(
+                                        (item) => (
+                                            <Table.Row key={item.id}>
+                                                <Table.Cell className="font-medium">
+                                                    {item.id}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item.name}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    <Dialog.Root>
+                                                        <Dialog.Trigger asChild>
+                                                            <Button
+                                                                variant="link"
+                                                                size="sm"
+                                                                title={`Metrics ${id}`}
+                                                            >
+                                                                <Icons.eye />
+                                                            </Button>
+                                                        </Dialog.Trigger>
+                                                        <Dialog.Modal className="max-w-[60vw] max-h-[95vh]">
+                                                            <Dialog.Header>
+                                                                <Dialog.Title>
+                                                                    Metrics {id}
+                                                                </Dialog.Title>
+                                                                <VWAnalyticsChartComponent
+                                                                    id={parseInt(
+                                                                        id
+                                                                    )}
+                                                                />
+                                                            </Dialog.Header>
+                                                        </Dialog.Modal>
+                                                    </Dialog.Root>
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        )
+                                    )
                                 ) : (
                                     <Table.Row>
                                         <Table.Cell

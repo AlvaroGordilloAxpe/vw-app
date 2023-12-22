@@ -1,0 +1,492 @@
+openapi: 3.0.3    
+info:
+  title: Technical Challenge of the VW digital hub
+  description: API to manage service of challenge
+  version: 1.0.0
+  contact:
+    name: "Roberto Bueno"
+    email: "rbuenol@axpe.com"
+servers:
+  - url: 'http://localshot:8080/challenge-app/v1'
+    variables:
+      protocol:
+        default: 'http'
+      host:
+        default: 'localhost'
+      port:
+        default: '8080'
+      basePath:
+        default: /challenge-app/v1
+security:
+  - basicAuth: []
+
+  
+paths:
+  '/tests/upload':
+    post:
+      tags:
+        - Challenge
+      operationId: loadDataFiles
+      summary: "Allows load metadata file and other data files with test information"
+      requestBody:
+        content: 
+           multipart/form-data:
+              schema:
+                 type: object
+                 properties: # Request parts
+                    metadata:
+                      type: string
+                      format: binary
+                    files:
+                      type: array
+                      items:
+                        type: string
+                        format: binary
+
+      responses:
+        '204':
+          description: NO_CONTENT
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+      security:
+        - basicAuth: []
+  '/tests':
+    get:
+      tags:
+        - Challenge
+      operationId: getTests
+      summary: "Obtains the list of tests from the applied filters"
+      parameters:
+        - $ref: '#/components/parameters/testName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestDataList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+      security:
+        - basicAuth: []
+  '/tests/{testId}':
+    get:
+      tags:
+        - Challenge
+      operationId: getTestById
+      summary: "Obtains the list of tests from the applied filters"
+      parameters:
+        - $ref: '#/components/parameters/testId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCompletedData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+      security:
+        - basicAuth: []
+  '/measurement/{measurementId}':
+    get:
+      tags:
+        - Challenge
+      operationId: getMeasurementById
+      summary: "Obtains the information and list of results asociated to measurement"
+      parameters:
+        - $ref: '#/components/parameters/measurementId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementQuantityCompleted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+      security:
+        - basicAuth: []      
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  responses:
+    NonContent:
+      description: "Non content"
+    BadRequest:
+      description: "Bad request"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    Forbidden:
+      description: "Forbidden"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    NotFound:
+      description: "Not found"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    Unauthorized:
+      description: "Unauthorized"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    NotAcceptable:
+      description: "NotAcceptable"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    UnsupportedMediaType:
+      description: "Unsupported Media Type"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    ServiceUnavailable:
+      description: "Service unavailable"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    GatewayTimeout:
+      description: "Too Many Requests"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorList'
+
+  parameters:
+    Authorization:
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        type: string
+      description: "Authorization security header"
+      example: Basic YWRtaW46YWRtaW4=
+    testName:
+      in: query
+      name: testName
+      required: false
+      schema:
+        type: string
+      description: "Test name"
+      example: 
+    testId:
+      in: path
+      name: testId
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: "Test ID"
+      example: 1 
+    measurementId:
+      in: path
+      name: measurementId
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: "MeasurementId ID"
+      example: 1    
+      
+  schemas:
+    TestDataList:
+      type: object
+      properties:
+        testDataList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestData'
+    TestCompletedData:
+      type: object
+      description: "Data structure containing data test including measurement quantity"
+      properties:
+        id:
+          type: integer
+          format: int64
+        testId:
+          type: string
+        name:
+          type: string
+        client:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string  
+        costCenter:
+          type: string
+        department:
+          type: string
+        emissionStandard:
+          type: string
+        jobNumber:
+          type: string
+        projectName:
+          type: string
+        vehicleName:
+          type: string
+        measurementQuantityList:  
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementQuantity'  
+      example:
+        id: 4
+        testId: 'test_01'
+        client: 'Surname, Johannes'
+        description: 'FTP75 OBD'
+        comment: 'comment'
+        name: 'test_01'
+        costCenter: '1687'
+        department: 'EACO/1'
+        emissionStandard: 'SULEV20 / 150.000 mi'
+        jobNumber: '21210'
+        projectName: '1,5l 118 kW TSI AQ300'
+        vehicleName: 'VW316580110'        
+        measurementQuantityList: 
+          - id: 4
+            measurementQuantityId: '1'
+            fileChildren: '00001_200114_cilcn_mager_zyl0_fe1.dat'
+            description: 'Mittlere Motordrehzahl über ein Zylindersegment'
+            comment: 'comment'
+            name: 'Epm_nEng'
+            group: 'group'
+            max: '2511'
+            min: '0'
+            testEquipmentId: 'FETK:1'
+            unit: 'rpm'
+            value: ''
+    MeasurementQuantity:
+      type: object
+      description: "Data structure containing measurement quantity"
+      properties:
+        id:
+          type: integer
+          format: int64
+        measurementQuantityId:
+          type: string
+        name:
+          type: string
+        fileChildren:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string  
+        group:
+          type: string
+        max:
+          type: string
+        min:
+          type: string
+        testEquipmentId:
+          type: string
+        unit:
+          type: string
+        value:
+          type: string
+      example:
+        id: 4
+        measurementQuantityId: '1'
+        fileChildren: '00001_200114_cilcn_mager_zyl0_fe1.dat'
+        description: 'Mittlere Motordrehzahl über ein Zylindersegment'
+        comment: 'comment'
+        name: 'Epm_nEng'
+        group: 'group'
+        max: '2511'
+        min: '0'
+        testEquipmentId: 'FETK:1'
+        unit: 'rpm'
+        value: ''
+    MeasurementQuantityCompleted:
+      type: object
+      description: "Data structure containing measurement quantity"
+      properties:
+        id:
+          type: integer
+          format: int64
+        measurementQuantityId:
+          type: string
+        name:
+          type: string
+        fileChildren:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string  
+        group:
+          type: string
+        max:
+          type: string
+        min:
+          type: string
+        testEquipmentId:
+          type: string
+        unit:
+          type: string
+        value:
+          type: string
+        quantityList:  
+          type: array
+          items:
+            $ref: '#/components/schemas/Quantity'  
+      example:
+        id: 4
+        measurementQuantityId: '1'
+        fileChildren: '00001_200114_cilcn_mager_zyl0_fe1.dat'
+        description: 'Mittlere Motordrehzahl über ein Zylindersegment'
+        comment: 'comment'
+        name: 'Epm_nEng'
+        group: 'group'
+        max: '2511'
+        min: '0'
+        testEquipmentId: 'FETK:1'
+        unit: 'rpm'
+        value: ''
+        quantityList:
+          - id: 5
+            value: '3697'
+            dateTime: '2020-07-16T16:55:42.000Z'
+    Quantity:
+      type: object
+      description: "Data structure containing measurement quantity"
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        dateTime:
+          schema:
+            $ref: '#/components/schemas/Date'
+      example:
+        id: 4
+        value: '526'
+        dateTime: '2020-07-16T16:55:42.000Z'
+    TestData:
+      type: object
+      description: "Data structure containing data test"
+      properties:
+        id:
+          type: integer
+          format: int64
+        testId:
+          type: string
+        name:
+          type: string
+        client:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string  
+        costCenter:
+          type: string
+        department:
+          type: string
+        emissionStandard:
+          type: string
+        jobNumber:
+          type: string
+        projectName:
+          type: string
+        vehicleName:
+          type: string
+      example:
+        id: 4
+        testId: 'test_01'
+        client: 'Surname, Johannes'
+        description: 'FTP75 OBD'
+        comment: 'comment'
+        name: 'test_01'
+        costCenter: '1687'
+        department: 'EACO/1'
+        emissionStandard: 'SULEV20 / 150.000 mi'
+        jobNumber: '21210'
+        projectName: '1,5l 118 kW TSI AQ300'
+        vehicleName: 'VW316580110'
+    Date: 
+      type: string
+      format: date-time
+      description: Creation date and time
+      example: "2020-07-16T16:55:42.000Z"
+    ErrorList:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique alphanumeric human readable error code
+          example: "Error code"
+        message:
+          type: string
+          description: Brief summary of issue reported
+          example: "Error description"
+        level:
+          type: string
+          description: 'Different issue level: info, warning, error'
+          example: "ErrorLevel error"

@@ -3,6 +3,7 @@ import {
     populateMeasurements,
     getMeasurements,
 } from '@/vw/database/measurements'
+import { getMeasurementByIdApi } from '../api'
 
 export const usePopulateMeasurements = () => {
     return useQuery({
@@ -15,5 +16,12 @@ export const useGetMeasurements = () => {
     return useQuery({
         queryKey: ['getmeasurements'],
         queryFn: getMeasurements,
+    })
+}
+
+export const useGetMeasurementById = (id: number) => {
+    return useQuery({
+        queryKey: ['getmeasurementbyid', id],
+        queryFn: getMeasurementByIdApi,
     })
 }

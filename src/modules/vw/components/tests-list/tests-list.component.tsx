@@ -9,12 +9,12 @@ import { Icons } from '@/common/components/icons'
 import { Button } from '@/common/components/ui/button'
 import { ScrollArea } from '@/common/components/ui/scroll-area'
 import { useGetTests } from '@/vw/services'
-import { Test } from '@/vw/database'
+import { TestsDataType } from '@/vw/api'
 
-const UPLOAD_PATH = 'upload-files'
-const ANALYTICS_PATH = '/vw/analytics'
+const UPLOAD_PATH = '/upload-files'
+const ANALYTICS_PATH = '/vw/analytics/'
 
-export const VWTestInfoDialog = ({ item }: { item: Test }) => {
+export const VWTestInfoDialog = ({ item }: { item: TestsDataType }) => {
     return (
         <Dialog.Root>
             <Dialog.Trigger asChild>
@@ -39,13 +39,13 @@ export const VWTestInfoDialog = ({ item }: { item: Test }) => {
                         </Table.Header>
                         <Table.Body>
                             <Table.Row>
-                                <Table.Cell>{item.ProjectName}</Table.Cell>
-                                <Table.Cell>{item.EmissionStandard}</Table.Cell>
-                                <Table.Cell>{item.VehicleName}</Table.Cell>
-                                <Table.Cell>{item.Client}</Table.Cell>
-                                <Table.Cell>{item.JobNumber}</Table.Cell>
-                                <Table.Cell>{item.CostCenter}</Table.Cell>
-                                <Table.Cell>{item.Department}</Table.Cell>
+                                <Table.Cell>{item.projectName}</Table.Cell>
+                                <Table.Cell>{item.emissionStandard}</Table.Cell>
+                                <Table.Cell>{item.vehicleName}</Table.Cell>
+                                <Table.Cell>{item.client}</Table.Cell>
+                                <Table.Cell>{item.jobNumber}</Table.Cell>
+                                <Table.Cell>{item.costCenter}</Table.Cell>
+                                <Table.Cell>{item.department}</Table.Cell>
                             </Table.Row>
                         </Table.Body>
                     </Table.Root>
@@ -74,7 +74,7 @@ export function VWTestsListComponent() {
                     </div>
                     <div>
                         <Button disabled={isFetching}>
-                            <Link href={`${pathName}/${UPLOAD_PATH}`}>
+                            <Link href={`${pathName}${UPLOAD_PATH}`}>
                                 Upload Tests
                             </Link>
                         </Button>
@@ -96,7 +96,7 @@ export function VWTestsListComponent() {
                             </Table.Header>
                             <Table.Body>
                                 {!isLoading && data ? (
-                                    data.map((item: Test) => (
+                                    data.map((item) => (
                                         <Table.Row key={item.id}>
                                             <Table.Cell className="font-medium">
                                                 {item.id}
@@ -117,7 +117,7 @@ export function VWTestsListComponent() {
                                                     variant="link"
                                                 >
                                                     <Link
-                                                        href={`${ANALYTICS_PATH}/${item.id}`}
+                                                        href={`${ANALYTICS_PATH}${item.id}`}
                                                     >
                                                         <Icons.lineChart />
                                                     </Link>

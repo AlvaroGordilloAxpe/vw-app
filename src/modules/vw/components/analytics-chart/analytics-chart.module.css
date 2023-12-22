@@ -5,7 +5,7 @@
 .canvas_chart {
     & canvas {
         width: 50vw !important;
-        height: 85vh !important;
+        height: 50vh !important;
         margin: 1rem auto;
     }
 }
