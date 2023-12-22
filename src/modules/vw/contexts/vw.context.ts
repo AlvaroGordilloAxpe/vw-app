@@ -1,13 +1,13 @@
 import { createContext, useContext } from 'react'
 
 type VWContextType = {
-    searchID: string
-    setSearchID: (id: string) => void
+    searchID: number
+    setSearchID: (id: number) => void
 }
 
 const DEFAULT_VW_CONTEXT = Object.freeze({
-    searchID: '',
-    setSearchID(id: string) {
+    searchID: 1,
+    setSearchID(id: number) {
         console.log(id)
     },
 })

@@ -13,7 +13,7 @@
         {
             "id": 3,
             "name": "busqueda tres",
-            "prompt": "selec * from xxxxxxxxxxx"
+            "prompt": "select * from xxxxxxxxxxx"
         }
     ]
 }

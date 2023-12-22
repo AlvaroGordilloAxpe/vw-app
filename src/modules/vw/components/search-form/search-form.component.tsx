@@ -6,6 +6,9 @@ import { LoadingButton } from '@/common/components/loading-button'
 import { Input } from '@/common/components/ui/input'
 import { Button } from '@/common/components/ui/button'
 import * as Dialog from '@/common/components/ui/dialog'
+import { useVWContext } from '@/vw/contexts'
+import { useGetSearchById } from '@/vw/services'
+import { Searches } from '@/vw/database'
 
 const schema = z.object({
     id: z.string(),
@@ -28,6 +31,9 @@ type SearchFormProps = Omit<
 }
 
 export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
+    const { searchID } = useVWContext()
+    const { data } = useGetSearchById(searchID)
+
     const form = Form.useZodForm<SearchFormDataType>({
         criteriaMode: 'firstError',
         schema,
@@ -95,38 +101,25 @@ export function VWSearchFormComponent({ onSubmit, ...props }: SearchFormProps) {
                 <div className="flex flex-row gap-x-8">
                     <Form.Field
                         control={form.control}
-                        name="id"
-                        render={({ field }) => (
-                            <Form.Item className="basis-1/3">
-                                <Form.Label>ID</Form.Label>
-                                <Form.Input>
-                                    <Input type="text" {...field} />
-                                </Form.Input>
-                                <Form.Message />
-                            </Form.Item>
-                        )}
-                    />
-                    <Form.Field
-                        control={form.control}
                         name="name"
-                        render={({ field }) => (
+                        render={({
+                            field: { name, onBlur, onChange, ref, value },
+                        }) => (
                             <Form.Item className="basis-1/3">
                                 <Form.Label>Name</Form.Label>
                                 <Form.Input>
-                                    <Input type="text" {...field} />
-                                </Form.Input>
-                                <Form.Message />
-                            </Form.Item>
-                        )}
-                    />
-                    <Form.Field
-                        control={form.control}
-                        name="testid"
-                        render={({ field }) => (
-                            <Form.Item className="basis-1/3">
-                                <Form.Label>Test ID</Form.Label>
-                                <Form.Input>
-                                    <Input type="text" {...field} />
+                                    <Input
+                                        type="text"
+                                        name={name}
+                                        onBlur={onBlur}
+                                        onChange={onChange}
+                                        ref={ref}
+                                        value={
+                                            data && data?.prompt
+                                                ? data.prompt
+                                                : value
+                                        }
+                                    />
                                 </Form.Input>
                                 <Form.Message />
                             </Form.Item>

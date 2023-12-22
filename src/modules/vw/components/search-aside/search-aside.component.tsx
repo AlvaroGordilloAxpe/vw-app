@@ -6,19 +6,20 @@ import { Icons } from '@/common/components/icons'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
 import { useVWContext } from '@/vw/contexts'
-import { useGetSearches } from '@/vw/services'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '@/vw/database'
 
 export function VWSearchAsideComponent() {
-    const { data, isLoading } = useGetSearches()
     const [selectedItem, setSelectedItem] = useState('')
     const { setSearchID } = useVWContext()
+    const data = useLiveQuery(() => db.searches.toArray())
 
     return (
         <div
             data-testid="vw-search-aside-component"
             className={cn(styles.container, 'bg-white')}
         >
-            {!isLoading && data && (
+            {data && (
                 <Command.Root>
                     <Command.Input
                         className="p-1"
@@ -40,6 +41,7 @@ export function VWSearchAsideComponent() {
                                         className={styles.items}
                                         onSelect={(value) => {
                                             setSelectedItem(value)
+                                            console.log(typeof item.id)
                                             setSearchID(item.id)
                                         }}
                                     >
@@ -50,6 +52,9 @@ export function VWSearchAsideComponent() {
                                         size="sm"
                                         variant="link"
                                         title={`Delete ${item.id}`}
+                                        onClick={() =>
+                                            db.searches.delete(item.id)
+                                        }
                                     >
                                         <Icons.close />
                                     </Button>

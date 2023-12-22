@@ -80,7 +80,7 @@ export interface MeasurementQuantity {
 }
 
 export interface Searches {
-    id?: number
+    id: number
     name: string
     prompt: string
 }
